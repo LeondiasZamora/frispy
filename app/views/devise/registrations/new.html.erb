@@ -1,5 +1,10 @@
-<h2>Sign up</h2>
+<div class="d-flex justify-content-center align-items-center mt-4 mb-5">
+<%= image_tag "frispy_logo.svg", width: 150, height: 150, class:"me-3"%>
+<h2 class="ms-3"><strong>FRISPY</strong></h2>
+</div>
 
+
+<div class="container d-flex flex-column justify-content-center px-4">
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
 
@@ -23,3 +28,4 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+</div>
