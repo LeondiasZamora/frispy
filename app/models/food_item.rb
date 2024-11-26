@@ -1,5 +1,12 @@
 class FoodItem < ApplicationRecord
   belongs_to :user
+  include PgSearch::Model
+  pg_search_scope :search_by_name,
+    against: :name,
+    using: {
+      tsearch: { prefix: true }
+    }
+  
 
   validates :name, presence: true
   validates :quantity, presence: true, numericality: { greater_than: 0 }

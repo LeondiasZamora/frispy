@@ -1,41 +1,47 @@
-<div class="container text-center mt-4">
-  <!-- Navbar -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-success fw-bold m-0">Frispy</h1>
-    <%= link_to "Login", new_user_session_path, class: "btn btn-outline-success" %>
+<div class="container" style="width: 90%">
+  <div id="sticky">
+  <div class=" mb-4 d-flex justify-content-center search-div">
+      <%= form_with url: food_items_path, method: :get, class: "search-form" do%>
+        <%=text_field_tag :query,
+            params[:query],
+            class:"form-control rounded search-food-bar",
+            placeholder: "Search in inventory"%>
+      <% end %>
+        <%= image_tag "realfilter.svg", class:"filter"%>
+        <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= image_tag "https://a.storyblok.com/f/191576/1200x800/a3640fdc4c/profile_picture_maker_before.webp", class: "avatar", alt: "dropdown menu" %>
+        </a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+          </div>
   </div>
-
-  <!-- Hero Section -->
-  <div class="my-5">
-    <h2 class="fw-bold">Frispy: Your Recipe for Less Waste</h2>
-    <p class="text-muted">
-      Frispy keeps your fridge crisp and your meals fresh! Track expiry dates, cut waste, and whip up recipes with ease—Frispy is freshness made simple.
-    </p>
-    <hr class="my-4" />
-    <%= link_to "Sign up", new_user_registration_path, class: "btn btn-success btn-lg px-5 py-2" %>
+  <div class="header mt-5">
+    <h4>Your Inventory</h4>
+    <%= image_tag "addicon.svg", id:"add-icon", class:"me-1"%>
   </div>
-
-  <!-- Features Section -->
-  <div class="text-start">
-    <h3 class="fw-bold">Why choose Frispy?</h3>
-    <ul class="list-unstyled mt-3">
-      <li class="mb-2">
-        <strong>Expiry Tracking</strong>: Never let food go to waste.
-      </li>
-      <li class="mb-2">
-        <strong>Custom Shelf Life</strong>: Define your food's freshness.
-      </li>
-      <li class="mb-2">
-        <strong>Recipes Suggestions</strong>: Turn ingredients into meals.
-      </li>
-      <li>
-        <strong>Notifications</strong>: Get alerts before food expires.
-      </li>
-    </ul>
   </div>
+  <%if @food_items.any? %>
+    <%@food_items.each do |item|%>
+      <div class="item-card
+        <% if (item.expiry_date - Date.today).to_i < 0%>
+          <%='expired'%>
+        <%elsif (item.expiry_date - Date.today).to_i < 2%>
+          <%='tomorrow'%>
+        <% elsif (item.expiry_date - Date.today).to_i < 6%>
+          <%='two-left'%>
+        <% else %>
+          <%= 'time-left' %>
+        <%end%>">
+        <div class="name-and-quantity">
+          <div class="item-quantity"><%= item.quantity%></div>
+          <div class="item-name"><%= item.name%></div>
+        </div>
+        <% if (item.expiry_date - Date.today).to_i < 0 %>
+          <div class="item-expectancy">expired</div>
+        <% else %>
+          <div class="item-expectancy "><%=item.expected_lifetime < 2 ? "tomorow" :  "#{item.expected_lifetime} days" %></div>
+        <% end %>
+      </div>
+    <%end%>
+  <%end%>
 </div>
-
-<!-- Footer -->
-<footer class="text-center mt-5">
-  <p class="text-muted">&copy; <%= Time.current.year %> Frispy</p>
-</footer>

@@ -1,9 +1,14 @@
 class FoodItemsController < ApplicationController
+  before_action :setup_food_item, only: %i[show edit update destroy]
   before_action :authenticate_user!
-  before_action :set_food_item, only: [:edit, :update, :destroy, :show]
 
   def index
-    @food_items = FoodItem.all
+    if params[:query].present?
+      food_list = FoodItem.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      food_list = FoodItem.all
+    end
+    @food_items = food_list.sort_by(&:expiry_date)
   end
 
   def show
@@ -11,7 +16,6 @@ class FoodItemsController < ApplicationController
     # response = HTTP.get("https://api.example.com/food_items/1")
     # @food_item = response.parse(:json) # Parse API response into a hash
     # @image_url = @food_item["image_url"] # Assuming the API returns an 'image_url' key
-
     @food_items = current_user.food_items.order(expiry_date: :asc, created_at: :asc)
   end
 
@@ -29,10 +33,16 @@ class FoodItemsController < ApplicationController
   end
 
   def edit
+
   end
   
 
   def update
+
+  end
+
+  def destroy
+
     if @food_item.update(food_item_params)
       redirect_to food_items_path, notice: "Food item updated successfully."
     else
@@ -54,6 +64,6 @@ class FoodItemsController < ApplicationController
   end
 
   def food_item_params
-    params.require(:food_item).permit(:name, :quantity, :expiry_date, :expected_lifetime, :nutry_score, images: [])
+    params.require(:food_item).permit(:name, :quantity, :expiry_date, :expected_lifetime, :nutri_score, images: [])
   end
 end
