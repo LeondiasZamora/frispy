@@ -1,11 +1,17 @@
 class FoodItemsController < ApplicationController
+  before_action :setup_food_item, only: %i[show edit update destroy]
 
   def index
-    @food_items = FoodItem.all
+    if params[:query].present?
+      food_list = FoodItem.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      food_list = FoodItem.all
+    end
+    @food_items = food_list.sort_by(&:expiry_date)
   end
 
   def show
-    @food_item = FoodItem.find(params[:id])
+
   end
 
   def new
@@ -17,20 +23,24 @@ class FoodItemsController < ApplicationController
   end
 
   def edit
-    @food_item = FoodItem.find(params[:id])
+
   end
 
   def update
-    @food_item = FoodItem.find(params[:id])
+
   end
 
   def destroy
-    @food_item = FoodItem.find(params[:id])
+
   end
 
   private
 
+  def setup_food_item
+    @food_item = FoodItem.find(params[:id])
+  end
+
   def food_item_params
-    params.require(:food_item).permit(:name, :quantity, :expiry_date, :expected_lifetime, :nutry_score, images: [])
+    params.require(:food_item).permit(:name, :quantity, :expiry_date, :expected_lifetime, :nutri_score, images: [])
   end
 end

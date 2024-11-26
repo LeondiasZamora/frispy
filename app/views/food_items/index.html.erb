@@ -1,1 +1,35 @@
-<h1>This is the index</h1>
+<div class="container">
+  <div class="mt-4 d-flex justify-content-center">
+    <%= form_with url: food_items_path, method: :get, class: "search-form" do%>
+      <%=text_field_tag :query,
+          params[:query],
+          class:"form-control rounded",
+          placeholder: "Search in inventory"%>
+    <% end %>
+  </div>
+
+  <%if @food_items.any? %>
+    <%@food_items.each do |item|%>
+      <div class="item-card
+        <% if (item.expiry_date - Date.today).to_i < 0%>
+          <%='expired'%>
+        <%elsif (item.expiry_date - Date.today).to_i < 2%>
+          <%='tomorrow'%>
+        <% elsif (item.expiry_date - Date.today).to_i < 6%>
+          <%='two-left'%>
+        <% else %>
+          <%= 'time-left' %>
+        <%end%>">
+        <div class="name-and-quantity">
+          <div class="item-quantity"><%= item.quantity%></div>
+          <div class="item-name"><%= item.name%></div>
+        </div>
+        <% if (item.expiry_date - Date.today).to_i < 0 %>
+          <div class="item-expectancy">expired</div>
+        <% else %>
+          <div class="item-expectancy "><%=item.expected_lifetime < 2 ? "tomorow" :  "#{item.expected_lifetime} days" %></div>
+        <% end %>
+      </div>
+    <%end%>
+  <%end%>
+</div>
