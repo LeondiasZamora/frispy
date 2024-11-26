@@ -3,6 +3,15 @@ class FoodItemsController < ApplicationController
   before_action :set_food_item, only: [:edit, :update, :destroy, :show]
 
   def index
+    @food_items = FoodItem.all
+  end
+
+  def show
+    @food_item = FoodItem.find(params[:id])
+    # response = HTTP.get("https://api.example.com/food_items/1")
+    # @food_item = response.parse(:json) # Parse API response into a hash
+    # @image_url = @food_item["image_url"] # Assuming the API returns an 'image_url' key
+
     @food_items = current_user.food_items.order(expiry_date: :asc, created_at: :asc)
   end
 
@@ -22,9 +31,6 @@ class FoodItemsController < ApplicationController
   def edit
   end
   
-  def show
-    
-  end
 
   def update
     if @food_item.update(food_item_params)

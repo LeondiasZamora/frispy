@@ -1,13 +1,39 @@
 <body>
 
 <!-- Navbar -->
-  <div class="container d-flex flex-column align-items-center mt-5 w-50">
-    <h>FRISPY</h>
-  </div>
-
-
+  <div class="container">
 
 <!-- Food Item and Picture -->
-<div class="Item w-100 mb-5">
-<h1><%=@food_item.name%></h1>
+<div class="Item-header d-flex justify-content-between align-items-center border-bottom pb-2 m-4">
+  <h1 class="text-left fw-bold"><%=@food_item.name%></h1>
+  <%= image_tag @image_url, alt: "Food Item", class: "food-item-image img-fluid" if @image_url.present? %>
+  <%= image_tag(@image_url || "comfort_food_placeholder.png", alt: "Food Item", class: "food-item-image img-fluid") %>
+</div>
+
+<!-- Food Item description -->
+
+<!-- Food Item details -->
+  <div class="food-detail border-bottom pb-2 m-4">
+    <p class="fw-bold">Nutritions per serving</p>
+    <p>Energy:</p>
+    <p>Carbohydrates:</p>
+    <p>Fat:</p>
+    <p>Protein:</p>
+  </div>
+
+<!-- Food Item nutrition Score -->
+<div class="nutrition-score border-bottom align-items-center pb-2 m-4">
+    <div class="fw-bold">Nutrition score</div>
+    <div class="nutri-score score-a">A</div>
+    <div class="nutri-score score-b">B</div>
+    <div class="nutri-score score-c">C</div>
+    <div class="nutri-score score-d">D</div>
+    <div class="nutri-score score-e">E</div>
+    </div>
+
+
+  <div class="bottom-buttons">
+    <%= link_to '×', root_path, class: 'close-btn pb-2 m-4', title: 'Close and go to Dashboard' %>
+    <%= link_to 'Recipes', root_path, class: 'next-btn pb-2 m-4', title: 'Browse recipes' %>
+  </div>
 </div>
