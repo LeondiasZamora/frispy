@@ -1,1 +1,41 @@
-<h1>This is the index</h1>
+<div class="container text-center mt-4">
+  <!-- Navbar -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-success fw-bold m-0">Frispy</h1>
+    <%= link_to "Login", new_user_session_path, class: "btn btn-outline-success" %>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="my-5">
+    <h2 class="fw-bold">Frispy: Your Recipe for Less Waste</h2>
+    <p class="text-muted">
+      Frispy keeps your fridge crisp and your meals fresh! Track expiry dates, cut waste, and whip up recipes with ease—Frispy is freshness made simple.
+    </p>
+    <hr class="my-4" />
+    <%= link_to "Sign up", new_user_registration_path, class: "btn btn-success btn-lg px-5 py-2" %>
+  </div>
+
+  <!-- Features Section -->
+  <div class="text-start">
+    <h3 class="fw-bold">Why choose Frispy?</h3>
+    <ul class="list-unstyled mt-3">
+      <li class="mb-2">
+        <strong>Expiry Tracking</strong>: Never let food go to waste.
+      </li>
+      <li class="mb-2">
+        <strong>Custom Shelf Life</strong>: Define your food's freshness.
+      </li>
+      <li class="mb-2">
+        <strong>Recipes Suggestions</strong>: Turn ingredients into meals.
+      </li>
+      <li>
+        <strong>Notifications</strong>: Get alerts before food expires.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center mt-5">
+  <p class="text-muted">&copy; <%= Time.current.year %> Frispy</p>
+</footer>
