@@ -1,0 +1,32 @@
+
+.nutri-score {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  color: #fcfbfb;
+  text-transform: uppercase;
+  margin: 2%;
+
+  &.score-a {
+    background-color: #05873b;
+  }
+
+  &.score-b {
+    background-color: #52e081;
+  }
+
+  &.score-c {
+    background-color: #f1c40f;
+  }
+
+  &.score-d {
+    background-color: #e92929;
+  }
+
+  &.score-e {
+    background-color: #ab1515;
+  }
+}

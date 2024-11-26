@@ -6,6 +6,9 @@ class FoodItemsController < ApplicationController
 
   def show
     @food_item = FoodItem.find(params[:id])
+    # response = HTTP.get("https://api.example.com/food_items/1")
+    # @food_item = response.parse(:json) # Parse API response into a hash
+    # @image_url = @food_item["image_url"] # Assuming the API returns an 'image_url' key
   end
 
   def new

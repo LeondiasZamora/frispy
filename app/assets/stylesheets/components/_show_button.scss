@@ -1,0 +1,32 @@
+.bottom-buttons {
+  position: fixed; /* Fix the buttons to the viewport */
+  bottom: 5px; /* Distance from the bottom */
+  left: 20px; /* Distance from the left */
+  display: flex; /* Align buttons side by side */
+  gap: 100px; /* Spacing between buttons */
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-content: stretch;
+  align-items: center;
+}
+
+.close-btn {
+  font-size: 5rem; /* Large cross button */
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent; /* No background */
+  border: none;
+}
+
+.next-btn {
+  font-size: 2rem; /* Normal text size for the button */
+  padding: 2px 27px; /* Padding for a rectangular shape */
+  height: 60px;
+  color: white; /* Text color */
+  background-color: green; /* Green background */
+  border: none; /* No border */
+  border-radius: 10px; /* Optional: rounded corners */
+  text-decoration: none; /* No underline */
+}
