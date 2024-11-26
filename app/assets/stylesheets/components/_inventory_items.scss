@@ -3,7 +3,7 @@
   justify-content: space-between;
   background-color: rgb(124, 255, 124);
   border-radius: 3px;
-  margin: 5% 5%;
+  margin: 5% 0%;
   padding: 5px 8px;
 }
 
@@ -46,5 +46,24 @@
   background-color: #328e01;
   border-radius: 5px;
   border: none;
+}
 
+#add-icon{
+  width: 20px;
+  height: 20px;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+#sticky{
+  margin: 0px -3px;
+  margin-top: 40px;
+  height: 100%;
+  background-color: white;
+  position: sticky;
+  top: 0px;
 }
