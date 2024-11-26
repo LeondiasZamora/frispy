@@ -1,6 +1,6 @@
 class FoodItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_food_item, only: [:edit, :update, :destroy]
+  before_action :set_food_item, only: [:edit, :update, :destroy, :show]
 
   def index
     @food_items = current_user.food_items.order(expiry_date: :asc, created_at: :asc)
@@ -20,6 +20,10 @@ class FoodItemsController < ApplicationController
   end
 
   def edit
+  end
+  
+  def show
+    
   end
 
   def update
@@ -44,6 +48,6 @@ class FoodItemsController < ApplicationController
   end
 
   def food_item_params
-    params.require(:food_item).permit(:name, :quantity, :unit, :nutriscore, :shelf_life, :expiry_date)
+    params.require(:food_item).permit(:name, :quantity, :expiry_date, :expected_lifetime, :nutry_score, images: [])
   end
 end
