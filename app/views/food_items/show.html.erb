@@ -1,8 +1,12 @@
+<nav class="navbar frispy-navbar">
+      <span class="navbar-brand text-white fw-bold align-center mx-auto">Frispy</span>
+    </div>
+  </nav>
+
 <body>
 
 <!-- Navbar -->
-  <div class="container">
-
+<div class="container pb-2 m-4">
 <!-- Food Item and Picture -->
 <div class="Item-header d-flex justify-content-between align-items-center border-bottom pb-2 m-4">
   <h1 class="text-left fw-bold"><%=@food_item.name%></h1>
@@ -13,7 +17,7 @@
 <!-- Food Item description -->
 
 <!-- Food Item details -->
-  <div class="food-detail border-bottom pb-2 m-4">
+  <div class="food-detail border-bottom">
     <p class="fw-bold">Nutritions per serving</p>
     <p>Energy:</p>
     <p>Carbohydrates:</p>
@@ -22,7 +26,7 @@
   </div>
 
 <!-- Food Item nutrition Score -->
-<div class="nutrition-score border-bottom align-items-center pb-2 m-4">
+<div class="nutrition-score border-bottom align-items-center">
     <div class="fw-bold">Nutrition score</div>
     <div class="nutri-score score-a">A</div>
     <div class="nutri-score score-b">B</div>

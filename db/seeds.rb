@@ -18,6 +18,7 @@ User.destroy_all
 
 user = User.new(email: "a@a.a", password: "123456")
 user.save
+
 # Seed data for FoodItem
 food_items = [
   {
