@@ -25,26 +25,28 @@
   </div>
   <%if @food_items.any? %>
     <%@food_items.each do |item|%>
-      <div class="item-card
-        <% if (item.expiry_date - Date.today).to_i < 0%>
-          <%='expired'%>
-        <%elsif (item.expiry_date - Date.today).to_i < 2%>
-          <%='tomorrow'%>
-        <% elsif (item.expiry_date - Date.today).to_i < 6%>
-          <%='two-left'%>
-        <% else %>
-          <%= 'time-left' %>
-        <%end%>">
-        <div class="name-and-quantity">
-          <div class="item-quantity"><%= item.quantity%></div>
-          <div class="item-name"><%= item.name%></div>
+      <%=link_to food_item_path(item), class:"text-decoration-none text-black" do%>
+        <div class="item-card
+          <% if (item.expiry_date - Date.today).to_i < 0%>
+            <%='expired'%>
+          <%elsif (item.expiry_date - Date.today).to_i < 2%>
+            <%='tomorrow'%>
+          <% elsif (item.expiry_date - Date.today).to_i < 6%>
+            <%='two-left'%>
+          <% else %>
+            <%= 'time-left' %>
+          <%end%>">
+          <div class="name-and-quantity">
+            <div class="item-quantity"><%= item.quantity%></div>
+            <div class="item-name"><%= item.name%></div>
+          </div>
+          <% if (item.expiry_date - Date.today).to_i < 0 %>
+            <div class="item-expectancy">expired</div>
+          <% else %>
+            <div class="item-expectancy "><%=(item.expiry_date - Date.today).to_i < 2 ? "tomorow" :  "#{(item.expiry_date - Date.today).to_i} days" %></div>
+          <% end %>
         </div>
-        <% if (item.expiry_date - Date.today).to_i < 0 %>
-          <div class="item-expectancy">expired</div>
-        <% else %>
-          <div class="item-expectancy "><%=(item.expiry_date - Date.today).to_i < 2 ? "tomorow" :  "#{(item.expiry_date - Date.today).to_i} days" %></div>
-        <% end %>
-      </div>
+      <%end%>
     <%end%>
     <%else%>
       <div class="call-to-action-inventory">
