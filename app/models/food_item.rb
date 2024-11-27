@@ -21,7 +21,7 @@ class FoodItem < ApplicationRecord
 
   def calculate_expiry_date
     if expiry_date.blank? && shelf_life.present?
-      self.expiry_date = created_at || Time.current + shelf_life.days
+      self.expiry_date = created_at || Date.current + expected_lifetime
     end
   end
 end

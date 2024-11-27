@@ -3,10 +3,11 @@ class FoodItemsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    user_items = FoodItem.where(user_id: current_user)
     if params[:query].present?
-      food_list = FoodItem.where("name ILIKE ?", "%#{params[:query]}%")
+      food_list = user_items.where("name ILIKE ?", "%#{params[:query]}%")
     else
-      food_list = FoodItem.all
+      food_list = user_items
     end
     @food_items = food_list.sort_by(&:expiry_date)
   end
@@ -20,11 +21,11 @@ class FoodItemsController < ApplicationController
   end
 
   def new
-    @food_item = current_user.food_items.new
+    @food_item = FoodItem.new
   end
 
   def create
-    @food_item = current_user.food_items.new(food_item_params)
+    @food_item = FoodItem.new(food_item_params)
     if @food_item.save
       redirect_to food_items_path, notice: "Food item added successfully."
     else
@@ -35,14 +36,8 @@ class FoodItemsController < ApplicationController
   def edit
 
   end
-  
 
   def update
-
-  end
-
-  def destroy
-
     if @food_item.update(food_item_params)
       redirect_to food_items_path, notice: "Food item updated successfully."
     else
@@ -64,6 +59,6 @@ class FoodItemsController < ApplicationController
   end
 
   def food_item_params
-    params.require(:food_item).permit(:name, :quantity, :expiry_date, :expected_lifetime, :nutri_score, images: [])
+    params.require(:food_item).permit(:name, :quantity, :expiry_date)
   end
 end

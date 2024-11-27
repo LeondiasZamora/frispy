@@ -67,3 +67,26 @@
   position: sticky;
   top: 0px;
 }
+
+.add-item-button{
+  background-color: #328e01;
+  border-radius: 5px;
+  border: none;
+  color: white;
+}
+
+.call-to-action-inventory{
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  margin-top: 90px;
+
+  > h4 {
+    font-size: 17px;
+  }
+
+  > button{
+    margin-top: 10px;
+    padding: 5px 8px;
+  }
+}

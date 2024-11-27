@@ -1,0 +1,10 @@
+<div class="container mt-5" style="width: 90%;">
+  <%= simple_form_for @food_item do |f| %>
+    <%= f.input :name %>
+    <%= f.input :quantity %>
+    <%= f.input :expiry_date %>
+    <div class="d-flex justify-content-end w-100">
+      <%= f.button :submit, class: "sign-up-button text-white mt-3 me-2" %>
+    </div>
+  <% end %>
+</div>
