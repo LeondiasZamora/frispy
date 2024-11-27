@@ -26,6 +26,7 @@ class FoodItemsController < ApplicationController
 
   def create
     @food_item = FoodItem.new(food_item_params)
+    @food_item.user = current_user
     if @food_item.save
       redirect_to food_items_path, notice: "Food item added successfully."
     else
