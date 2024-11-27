@@ -1,5 +1,5 @@
 class FoodItemsController < ApplicationController
-  before_action :setup_food_item, only: %i[show edit update destroy]
+  before_action :set_food_item, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   def index
@@ -35,7 +35,7 @@ class FoodItemsController < ApplicationController
   def edit
 
   end
-  
+
 
   def update
 
