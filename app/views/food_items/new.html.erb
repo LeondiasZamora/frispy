@@ -6,7 +6,7 @@
   <%= simple_form_for @food_item do |f| %>
     <%= f.input :name %>
     <%= f.input :quantity %>
-    <%= f.input :expiry_date, as: :string, input_html: { data: { controller: "datepicker" } } %>
+    <%= f.input :expiry_date, as: :string, input_html: { data: { controller: "datepicker"  }} %>
     <div class="d-flex justify-content-between align-items-baseline">
       <%# <button class="ms-3 back-button mt-3"> %>
         <%=link_to "Cancel", food_items_path, class:"text-decoration-none text-black ms-3"%>

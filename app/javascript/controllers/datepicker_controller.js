@@ -7,6 +7,7 @@ static values = {dates: Array}
 
   connect() {
     flatpickr(this.element, {
+      disableMobile: true,
       minDate: "today",
       maxDate: new Date().fp_incr(90)
     })
