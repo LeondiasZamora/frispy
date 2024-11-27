@@ -1,4 +1,8 @@
-<div class="container mt-5" style="width: 90%;">
+<div class="d-flex justify-content-center mt-5">
+  <%=image_tag "add_items.svg", width: 140, height: 150, class:""%>
+</div>
+
+<div class="container mt-3" style="width: 90%;">
   <%= simple_form_for @food_item do |f| %>
     <%= f.input :name %>
     <%= f.input :quantity %>
