@@ -13,11 +13,14 @@
         </a>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+            <%= link_to "About", root_path, class: "dropdown-item" %>
           </div>
   </div>
   <div class="header mt-5">
     <h4>Your Inventory</h4>
-    <%= image_tag "addicon.svg", id:"add-icon", class:"me-1"%>
+    <%= link_to(new_food_item_path) do%>
+      <%= image_tag "addicon.svg", id:"add-icon", class:"me-1"%>
+    <%end%>
   </div>
   </div>
   <%if @food_items.any? %>
@@ -39,9 +42,14 @@
         <% if (item.expiry_date - Date.today).to_i < 0 %>
           <div class="item-expectancy">expired</div>
         <% else %>
-          <div class="item-expectancy "><%=item.expected_lifetime < 2 ? "tomorow" :  "#{item.expected_lifetime} days" %></div>
+          <div class="item-expectancy "><%=(item.expiry_date - Date.today).to_i < 2 ? "tomorow" :  "#{(item.expiry_date - Date.today).to_i} days" %></div>
         <% end %>
       </div>
     <%end%>
+    <%else%>
+      <div class="call-to-action-inventory">
+        <h4 class="headline">Let's reduce food waste together ! </h4>
+          <%=link_to "Add Item",new_food_item_path, class:"add-item-button text-decoration-none px-2 py-1"%>
+      </div>
   <%end%>
 </div>

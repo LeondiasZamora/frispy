@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-center mt-5">
+  <%=image_tag "add_items.svg", width: 140, height: 150, class:""%>
+</div>
+
+<div class="container mt-3" style="width: 90%;">
+  <%= simple_form_for @food_item do |f| %>
+    <%= f.input :name %>
+    <%= f.input :quantity %>
+    <%= f.input :expiry_date, as: :string, input_html: { data: { controller: "datepicker" } } %>
+    <div class="d-flex justify-content-between align-items-baseline">
+      <%# <button class="ms-3 back-button mt-3"> %>
+        <%=link_to "Cancel", food_items_path, class:"text-decoration-none text-black ms-3"%>
+      <%# </button> %>
+      <div class="d-flex justify-content-end w-100">
+        <%= f.button :submit, class: "sign-up-button text-white mt-3 me-2" %>
+      </div>
+    </div>
+  <% end %>
+
+</div>
