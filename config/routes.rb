@@ -10,8 +10,4 @@ Rails.application.routes.draw do
   resources :food_items, except: [:show]
   # Defines the root path route ("/")
   # root "posts#index"
-
-
-
-
 end
