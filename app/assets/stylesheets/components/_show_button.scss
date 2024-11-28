@@ -1,14 +1,8 @@
-.bottom-buttons {
-  position: fixed; /* Fix the buttons to the viewport */
-  bottom: 5px; /* Distance from the bottom */
-  left: 20px; /* Distance from the left */
-  display: flex; /* Align buttons side by side */
-  gap: 100px; /* Spacing between buttons */
-  justify-content: space-evenly;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  align-content: stretch;
+.container-buttons {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .close-btn {
