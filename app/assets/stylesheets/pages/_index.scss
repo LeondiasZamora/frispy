@@ -1,2 +1,13 @@
 // Import page-specific CSS files here.
 @import "home";
+
+.search-food-bar {
+
+@media (max-width: 768px) {
+    max-width: 400px;
+  }
+
+  @media (max-width: 576px) {
+    max-width: 160px;
+  }
+}
