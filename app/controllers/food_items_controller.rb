@@ -1,5 +1,9 @@
+require 'uri'
+require 'net/http'
+require "json"
+
 class FoodItemsController < ApplicationController
-  before_action :set_food_item, only: %i[show edit update destroy]
+  before_action :set_food_item, only: %i[show edit update destroy recipes]
   before_action :authenticate_user!
 
   def index
@@ -22,6 +26,31 @@ class FoodItemsController < ApplicationController
 
   def new
     @food_item = FoodItem.new
+  end
+
+  def recipes
+    # urgent_food_items = FoodItem.where(expiry_date: Date.today)
+    # @food_item = FoodItem.find(params[:id])
+    @food_item = FoodItem.find(params[:id])
+
+    url = "https://tasty.p.rapidapi.com/recipes/list?from=0&size=10&q="
+    url += @food_item.name
+
+    # urgent_food_items.each do |item|
+    #   url += "%2C%20#{item.name}"
+    # end
+
+    new_url = URI(url)
+    http = Net::HTTP.new(new_url.host, new_url.port)
+    http.use_ssl = true
+
+    request = Net::HTTP::Get.new(new_url)
+    request["x-rapidapi-key"] = '7742a48828msh02c98e073429450p12b25cjsn1fb00543e799'
+    request["x-rapidapi-host"] = 'tasty.p.rapidapi.com'
+
+    response = http.request(request)
+    data = response.read_body
+    @recipes = JSON.parse(data)
   end
 
   def create
