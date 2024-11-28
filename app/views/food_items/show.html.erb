@@ -1,7 +1,20 @@
 <nav class="navbar frispy-navbar">
-      <span class="navbar-brand text-white fw-bold align-center mx-auto">Frispy</span>
+  <div class="container-fluid">
+    <span class="navbar-brand text-white fw-bold">Frispy</span>
+
+    <div class="d-flex align-items-center flex-wrap">
+      <div class="dropdown">
+        <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= image_tag "Frispy_Logo_nav.png", class: "avatar", alt: "dropdown menu" %>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+          <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
+          <%= link_to "About", root_path, class: "dropdown-item" %>
+        </div>
+      </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
 <body>
 
