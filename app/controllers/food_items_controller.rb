@@ -85,7 +85,7 @@ class FoodItemsController < ApplicationController
   def set_food_item
     @food_item = current_user.food_items.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to food_items_path, alert: "Food item not found."
+    redirect_to food_items_path
   end
 
   def food_item_params

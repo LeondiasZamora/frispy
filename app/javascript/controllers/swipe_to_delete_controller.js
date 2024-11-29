@@ -65,9 +65,6 @@ export default class extends Controller {
     }
 
     this.element.classList.add("swiped");  // Mark the item as swiped
-
-    // Trigger the delete action after the swipe
-    this.deleteItem();
   }
 
   swipeRight() {
@@ -80,29 +77,6 @@ export default class extends Controller {
 
   resetSwipe() {
     this.element.style.transform = '';  // Reset swipe position
-  }
-
-  async deleteItem() {
-    const url = this.element.querySelector('a').href;
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-
-    try {
-      const response = await fetch(url, {
-        method: 'DELETE',
-        headers: {
-          'X-CSRF-Token': csrfToken,
-          'Accept': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        this.element.remove();  // If successful, remove the element from the DOM
-      } else {
-        console.error("Failed to delete item");
-      }
-    } catch (error) {
-      console.error("Error during delete request:", error);
-    }
   }
 
   handleLinkClick(event) {
