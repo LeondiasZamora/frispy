@@ -11,20 +11,20 @@
 @import "components/index";
 @import "pages/index";
 
-// .tada {
-//   background-image: url('background1.webp');
-//   opacity: 0.95;
-//   height: 100%;
-// }
+.tada {
+  background-image: url('background1.webp');
+  opacity: 0.95;
+  height: 100%;
+}
 
 
-// .tada::before {
-//   content: '';
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background: rgba(255, 255, 255, 0.95);
-//   z-index: -1;
-// }
+.tada::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: -1;
+}
