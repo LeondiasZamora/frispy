@@ -9,6 +9,31 @@
   margin-right: 5%;
 }
 
+.kcal-amount-row {
+  display: flex;
+  gap: 120px;
+  align-items: center;
+  align-content: space-between;
+}
+
+.square {
+  width: 90px;
+  height: 90px;
+  background-color: none;
+  color: rgb(14, 154, 56);
+  font-size: 50px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  border-radius: 0px;
+}
+
 /* Circle */
 .circle {
   width: 90px;
