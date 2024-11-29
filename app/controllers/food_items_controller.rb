@@ -1,6 +1,7 @@
 require 'uri'
 require 'net/http'
 require "json"
+require "open-uri"
 
 class FoodItemsController < ApplicationController
   before_action :set_food_item, only: %i[show edit update destroy recipes]
@@ -61,6 +62,9 @@ class FoodItemsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+    query = @food_item.name
+    url ="https://api.calorieninjas.com/v1/nutrition?query="
+    api_key = "ENcN8AvX6lEDkY0gaXLeUg==iAhCC694M9GYfD04"
   end
 
   def edit

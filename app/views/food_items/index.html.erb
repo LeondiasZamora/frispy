@@ -41,7 +41,7 @@
     <div class="">
     <div data-controller="swipe-to-delete" data-action="touchstart->swipe-to-delete#start touchmove->swipe-to-delete#move touchend->swipe-to-delete#end", class="d-flex align-items-center w-100">
       <!-- Item link with proper classes for decoration and navigation -->
-      <%= link_to food_item_path(item), class: "text-decoration-none text-black", data: { action: "click->swipe-to-delete#handleLinkClick" } do %>
+      <%= link_to food_item_path(item), class: "text-decoration-none text-black w-100", data: { action: "click->swipe-to-delete#handleLinkClick" } do %>
         <div class="card-with-bin ">
           <div class="item-card
             <% if (item.expiry_date - Date.today).to_i < 0 %>
