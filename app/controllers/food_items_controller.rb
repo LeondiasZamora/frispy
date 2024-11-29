@@ -68,10 +68,10 @@ class FoodItemsController < ApplicationController
       puts "An error occurred while making the API request."
     end
 
-    @food_item.calories = data["items"][0]["calories"]
-    @food_item.protein = data["items"][0]["protein_g"]
-    @food_item.fats = data["items"][0]["fat_total_g"]
-    @food_item.carbs = data["items"][0]["carbohydrates_total_g"]
+    @food_item.update(calories: data["items"][0]["calories"])
+    @food_item.update(protein: data["items"][0]["protein_g"])
+    @food_item.update(fats: data["items"][0]["fat_total_g"])
+    @food_item.update(carbs: data["items"][0]["carbohydrates_total_g"])
 
     if @food_item.save
       redirect_to food_items_path, notice: "Food item added successfully."
