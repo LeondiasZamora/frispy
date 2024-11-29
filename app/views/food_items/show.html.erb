@@ -50,12 +50,17 @@
     <div class="nutri-score score-e">E</div>
     </div>
 
-<div class="container-buttons">
-  <div>
-    <%= link_to 'Recipes', food_item_recipes_path(@food_item), class: 'next-btn', title: 'Browse recipes' %>
-  </div>
-  <div>
-    <%= link_to '×', food_items_path, class: 'close-btn', title: 'Close and go to Dashboard' %>
+<div class="container-buttons d-flex justify-content-center align-items-center gap-3">
+  <!-- Recipes Button -->
+  <%= link_to 'Show recipes', food_item_recipes_path(@food_item),
+        class: 'recipes-browse px-4 py-2 text-decoration-none text-white',
+        title: 'Browse recipes' %>
 
-  </div>
+  <!-- Back Button -->
+  <%= link_to "Back", food_item_path,
+        class: "btn btn-secondary px-4 py-2 text-decoration-none text-white" %>
 </div>
+
+ <footer class="text-center mt-5">
+      <p class="text-muted">&copy; <%= Time.current.year %> Frispy</p>
+    </footer>
