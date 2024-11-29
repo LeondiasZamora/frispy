@@ -4,7 +4,7 @@
   align-items: flex-start;
   gap: 20px;
   margin-top: 30px;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
   margin-left: 5%;
   margin-right: 5%;
 }
@@ -34,24 +34,39 @@
   border-radius: 0px;
 }
 
+.item_quantity{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Circle */
 .circle {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   background-color: rgb(246, 243, 243);
   color: black;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  border: 10px solid #2eae5dfd;
+  border: 6px solid #2eae5dfd;
   text-align: center;
+  margin-left: 15px;
 }
 
 /* Rectangle row */
 .rectangle-row {
+  width: 100%;
   display: flex;
   justify-content: center;
   gap: 30px;
@@ -68,9 +83,81 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-left: 5px solid #47c374fd;
+  // border-left: 5px solid rgb(29, 64, 238);
   border-right: none;
   border-top: none;
   border-bottom: none;
   border-radius: 0px;
+
+}
+.protein{
+  border-left: 5px solid rgb(177, 25, 14);
+}
+.fats{
+  border-left: 5px solid rgb(29, 64, 238);
+}
+.carbs{
+  border-left: 5px solid rgb(219, 156, 21);
+}
+
+.name-and-quantity-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+#green-legend{
+  border-radius: 3px;
+  width: 12px;
+  height: 12px;
+  background-color:rgb(14, 154, 56);
+}
+
+#orange-legend{
+  border-radius: 3px;
+  width: 12px;
+  height: 12px;
+  background-color:rgb(219, 156, 21);
+}
+#red-legend{
+  border-radius: 3px;
+  width: 12px;
+  height: 12px;
+  background-color:rgb(177, 25, 14);
+}
+#blue-legend{
+  border-radius: 3px;
+  width: 12px;
+  height: 12px;
+  background-color:rgb(29, 64, 238);
+}
+
+.legend-row{
+  display:flex;
+  align-items: center;
+}
+
+#legend{
+  margin-right: 20px;
+  display: flex;
+
+}
+
+.legend-and-circle{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nutri-table{
+  display: flex;
+  justify-content: center;
+}
+
+.border-buttons{
+  height: 1px;
+  width: 90%;
+  margin: 10px auto;
 }
