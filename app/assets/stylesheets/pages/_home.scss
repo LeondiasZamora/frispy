@@ -64,3 +64,33 @@ body {
   border-radius: 50%;
   border: 3px solid white;
 }
+
+.tada {
+  background-image: url('background1.webp');
+  opacity: 0.95;
+  height: 930px;
+}
+
+
+.tada::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1020px;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: -1;
+}
+
+
+.search-food-bar {
+
+@media (max-width: 768px) {
+    max-width: 400px;
+  }
+
+  @media (max-width: 576px) {
+    max-width: 160px;
+  }
+}
