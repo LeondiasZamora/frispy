@@ -45,7 +45,7 @@ class FoodItemsController < ApplicationController
     http.use_ssl = true
 
     request = Net::HTTP::Get.new(new_url)
-    request["x-rapidapi-key"] = '7742a48828msh02c98e073429450p12b25cjsn1fb00543e799'
+    request["x-rapidapi-key"] = ENV["RECIPES_API_KEY"]
     request["x-rapidapi-host"] = 'tasty.p.rapidapi.com'
 
     response = http.request(request)
@@ -62,7 +62,7 @@ class FoodItemsController < ApplicationController
     # Api call to get the nutritional values is made here :
     query = @food_item.name
     url = "https://api.calorieninjas.com/v1/nutrition?query="
-    api_key = "ENcN8AvX6lEDkY0gaXLeUg==iAhCC694M9GYfD04"
+    api_key = ENV["NUTRITION_API_KEY"]
 
     response = URI.open(url + query, "X-Api-Key" => api_key)
     if response
@@ -79,7 +79,7 @@ class FoodItemsController < ApplicationController
 
 
     # here we make the api call to the unsplash api in order to get an image
-    unsplash_api_key = "XapE_GQMkJ2NKRDGzr93i6uR743CM-mXkF_ZGHOXDkU"
+    unsplash_api_key = ENV["UNSPLASH_API_KEY"]
     unsplash_api_base_url = "https://api.unsplash.com/search/photos"
 
     unsplash_api_url = "#{unsplash_api_base_url}?query=#{URI.encode_www_form_component(query)}&client_id=#{unsplash_api_key}"

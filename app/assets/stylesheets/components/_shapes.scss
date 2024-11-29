@@ -166,7 +166,7 @@
   width: 160px;
   height: 160px;
   object-position: center center;
-  object-fit: fill; // Adjust to maintain the aspect ratio and center the image
-  overflow: hidden;  // Ensures the image doesn't extend beyond the bounds
-  border-radius: 8px; // Optional: Adds rounded corners
+  object-fit: fill;
+  overflow: hidden;
+  border-radius: 8px;
 }
