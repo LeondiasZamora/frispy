@@ -80,7 +80,7 @@ class FoodItemsController < ApplicationController
 
     # here we make the api call to the unsplash api in order to get an image
     unsplash_api_key = "XapE_GQMkJ2NKRDGzr93i6uR743CM-mXkF_ZGHOXDkU"
-    unsplash_api_base_url = "https://api.unsplash.com/search/photos?query=red%20apple&client_id="
+    unsplash_api_base_url = "https://api.unsplash.com/search/photos"
 
     unsplash_api_url = "#{unsplash_api_base_url}?query=#{URI.encode_www_form_component(query)}&client_id=#{unsplash_api_key}"
 
@@ -88,7 +88,7 @@ class FoodItemsController < ApplicationController
     image_data = JSON.parse(unsplash_response)
 
     #updating the @food_item with the image url we got back
-    @food_item.update(image_url: image_data["results"][0]["urls"]["small"])
+    @food_item.update(image_url: image_data["results"][0]["urls"]["thumb"])
 
     if @food_item.save
       redirect_to food_items_path, notice: "Food item added successfully."
