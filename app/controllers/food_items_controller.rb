@@ -57,6 +57,9 @@ class FoodItemsController < ApplicationController
 
     @food_item = FoodItem.new(food_item_params)
     @food_item.user = current_user
+
+
+    # Api call to get the nutritional values is made here :
     query = @food_item.name
     url = "https://api.calorieninjas.com/v1/nutrition?query="
     api_key = "ENcN8AvX6lEDkY0gaXLeUg==iAhCC694M9GYfD04"
@@ -68,10 +71,24 @@ class FoodItemsController < ApplicationController
       puts "An error occurred while making the API request."
     end
 
+    #updating the @food_item with the values we get from the api:
     @food_item.update(calories: data["items"][0]["calories"])
     @food_item.update(protein: data["items"][0]["protein_g"])
     @food_item.update(fats: data["items"][0]["fat_total_g"])
     @food_item.update(carbs: data["items"][0]["carbohydrates_total_g"])
+
+
+    # here we make the api call to the unsplash api in order to get an image
+    unsplash_api_key = "XapE_GQMkJ2NKRDGzr93i6uR743CM-mXkF_ZGHOXDkU"
+    unsplash_api_base_url = "https://api.unsplash.com/search/photos?query=red%20apple&client_id="
+
+    unsplash_api_url = "#{unsplash_api_base_url}?query=#{URI.encode_www_form_component(query)}&client_id=#{unsplash_api_key}"
+
+    unsplash_response = URI.open(unsplash_api_url).read
+    image_data = JSON.parse(unsplash_response)
+
+    #updating the @food_item with the image url we got back
+    @food_item.update(image_url: image_data["results"][0]["urls"]["small"])
 
     if @food_item.save
       redirect_to food_items_path, notice: "Food item added successfully."
