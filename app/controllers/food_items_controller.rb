@@ -40,7 +40,6 @@ class FoodItemsController < ApplicationController
     # urgent_food_items.each do |item|
     #   url += "%2C%20#{item.name}"
     # end
-
     new_url = URI(url)
     http = Net::HTTP.new(new_url.host, new_url.port)
     http.use_ssl = true
@@ -55,16 +54,31 @@ class FoodItemsController < ApplicationController
   end
 
   def create
+
     @food_item = FoodItem.new(food_item_params)
     @food_item.user = current_user
+    query = @food_item.name
+    url = "https://api.calorieninjas.com/v1/nutrition?query="
+    api_key = "ENcN8AvX6lEDkY0gaXLeUg==iAhCC694M9GYfD04"
+
+    response = URI.open(url + query, "X-Api-Key" => api_key)
+    if response
+      data = JSON.parse(response.read)
+    else
+      puts "An error occurred while making the API request."
+    end
+
+    @food_item.calories = data["items"][0]["calories"]
+    @food_item.protein = data["items"][0]["protein_g"]
+    @food_item.fats = data["items"][0]["fat_total_g"]
+    @food_item.carbs = data["items"][0]["carbohydrates_total_g"]
+
     if @food_item.save
       redirect_to food_items_path, notice: "Food item added successfully."
     else
       render :new, status: :unprocessable_entity
     end
-    query = @food_item.name
-    url ="https://api.calorieninjas.com/v1/nutrition?query="
-    api_key = "ENcN8AvX6lEDkY0gaXLeUg==iAhCC694M9GYfD04"
+
   end
 
   def edit

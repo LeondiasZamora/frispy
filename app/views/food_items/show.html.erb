@@ -31,12 +31,12 @@
 
 <!-- Food Item details -->
  <div class="container-shapes border-bottom pb-2 m-5">
- <div class="fw-bold">Nutrition values</div>
-  <div class="circle">346 kcal</div>
+ <div class="fw-bold">Nutritional values</div>
+  <div class="circle"><%=@food_item.calories%> cal</div>
   <div class="rectangle-row">
-    <div class="rectangle">10g CARBS</div>
-    <div class="rectangle">7g PROTEIN</div>
-    <div class="rectangle">7g FATS</div>
+    <div class="rectangle"><%= @food_item.carbs%>g</div>
+    <div class="rectangle"><%= @food_item.protein%>g</div>
+    <div class="rectangle"><%= @food_item.fats %>g</div>
   </div>
 </div>
 
