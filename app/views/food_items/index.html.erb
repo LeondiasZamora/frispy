@@ -26,10 +26,6 @@
     </div>
   </div>
 </nav>
-
-
-
-
 <div class="container" style="width: 90%">
   <div id="sticky">
   <div class="header mt-5">
@@ -39,31 +35,46 @@
     <%end%>
   </div>
   </div>
-  <%if @food_items.any? %>
-    <%@food_items.each do |item|%>
-      <%=link_to food_item_path(item), class:"text-decoration-none text-black" do%>
-        <div class="item-card
-          <% if (item.expiry_date - Date.today).to_i < 0%>
-            <%='expired'%>
-          <%elsif (item.expiry_date - Date.today).to_i < 2%>
-            <%='tomorrow'%>
-          <% elsif (item.expiry_date - Date.today).to_i < 6%>
-            <%='two-left'%>
-          <% else %>
-            <%= 'time-left' %>
-          <%end%>">
-          <div class="name-and-quantity">
-            <div class="item-quantity"><%= item.quantity%></div>
-            <div class="item-name"><%= item.name%></div>
+ <% if @food_items.any? %>
+  <% @food_items.each do |item| %>
+    <!-- Apply the controller to the item card -->
+    <div class="">
+    <div data-controller="swipe-to-delete" data-action="touchstart->swipe-to-delete#start touchmove->swipe-to-delete#move touchend->swipe-to-delete#end", class="d-flex align-items-center w-100">
+      <!-- Item link with proper classes for decoration and navigation -->
+      <%= link_to food_item_path(item), class: "text-decoration-none text-black", data: { action: "click->swipe-to-delete#handleLinkClick" } do %>
+        <div class="card-with-bin ">
+          <div class="item-card
+            <% if (item.expiry_date - Date.today).to_i < 0 %>
+              expired
+            <% elsif (item.expiry_date - Date.today).to_i < 2 %>
+              tomorrow
+            <% elsif (item.expiry_date - Date.today).to_i < 6 %>
+              two-left
+            <% else %>
+              time-left
+            <% end %>">
+            <div class="name-and-quantity">
+              <div class="item-quantity"><%= item.quantity %></div>
+              <div class="item-name"><%= item.name %></div>
+            </div>
+            <% if (item.expiry_date - Date.today).to_i < 0 %>
+              <div class="item-expectancy">expired</div>
+            <% else %>
+              <div class="item-expectancy">
+                <%= (item.expiry_date - Date.today).to_i < 2 ? "tomorrow" : "#{(item.expiry_date - Date.today).to_i} days" %>
+              </div>
+            <% end %>
           </div>
-          <% if (item.expiry_date - Date.today).to_i < 0 %>
-            <div class="item-expectancy">expired</div>
-          <% else %>
-            <div class="item-expectancy "><%=(item.expiry_date - Date.today).to_i < 2 ? "tomorow" :  "#{(item.expiry_date - Date.today).to_i} days" %></div>
-          <% end %>
+          <%# <div data-swipe-to-delete-target="bin" class="d-none ms-2"></div> %>
         </div>
-      <%end%>
-    <%end%>
+      <% end %>
+        <%# <%= link_to "🗑️", food_item_path(item), data: { turbo_method: :delete, turbo_method: "Are you sure ?"}, class:"d-none ms-2"%>
+          <%= link_to "🗑️", food_item_path(item), data: { turbo_method: "delete", swipe_to_delete_target:"bin", turbo_action: "replace"}, class: "d-none ms-2" %>
+    </div>
+
+      <!-- Bin icon for deletion -->
+    </div>
+  <% end %>
     <%else%>
       <div class="call-to-action-inventory">
         <h4 class="headline">Let's reduce food waste together ! </h4>

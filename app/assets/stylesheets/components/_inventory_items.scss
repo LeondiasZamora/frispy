@@ -5,7 +5,10 @@
   border-radius: 3px;
   margin: 5% 0%;
   padding: 5px 8px;
+  width: 360px;
+  flex-grow: 1;
 }
+
 
 .item-quantity{
   text-align: center;
@@ -23,7 +26,8 @@
 }
 
 .item-expectancy{
-  margin-right: 10px;
+  // margin-right: 10px;
+  text-align:end;
 }
 
 .tomorrow{
@@ -89,4 +93,23 @@
     margin-top: 10px;
     padding: 5px 8px;
   }
+}
+
+.card-with-bin {
+  display: flex;
+  width: 100%; /* Ensure the parent spans full width */
+  align-items: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: relative;
+}
+
+
+.card-with-bin.swiped {
+  transform: translateX(-100%);  /* Move the card to the left (for delete) */
+  opacity: 0.5;  /* Optionally reduce opacity to indicate it's being swiped */
+}
+
+.card-with-bin.deleting {
+  transform: translateX(-120%); /* Optionally go further left when it's about to delete */
+  opacity: 0; /* Fade out when deleting */
 }
