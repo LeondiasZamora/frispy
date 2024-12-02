@@ -4,6 +4,7 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
+  height: 150px;
 }
 
 .card-product img {
@@ -30,6 +31,9 @@
 
 .card-product .card-product-infos {
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .back-button-recipes{
@@ -53,4 +57,13 @@
   position: sticky;
   top: 0px;
   z-index: 2;
+}
+
+.save-icon-recipes{
+  height: 20px !important;
+  width: 20px !important;
+}
+
+.recipes-image{
+  height: 100%;
 }
