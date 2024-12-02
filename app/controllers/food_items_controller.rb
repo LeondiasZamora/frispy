@@ -113,7 +113,9 @@ class FoodItemsController < ApplicationController
   end
 
   def edit
+  end
 
+  def rewards
   end
 
   def update
@@ -128,6 +130,7 @@ class FoodItemsController < ApplicationController
     @food_item.destroy
     redirect_to food_items_path, notice: "Food item deleted successfully."
   end
+
 
   private
 

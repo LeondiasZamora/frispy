@@ -1,0 +1,48 @@
+<nav class="navbar frispy-navbar">
+  <div class="container-fluid">
+    <span class="navbar-brand text-white fw-bold">Frispy</span>
+</div>
+</nav>
+
+
+<div class="total-rewards-sections-container">
+  <div class="total-rewards-section">
+    <img src="<%= asset_path('logo1.png') %>" alt="Logo 1" class="section-logo-total-rewards">
+    <span class="section-text-total-rewards text-center fw-bolder">800</span>
+    <span class="section-text text-center fw-bold">Your Balance</span>
+    <span class="section-text text-center">Earn points by consuming food before it expires, donating to charity, or reducing waste responsibly</span>
+  </div>
+</div>
+
+<div class ="border-buttons border-bottom mb-4"></div>
+
+<div class="rewards-breakdown-section-container">
+  <div class="rewards-breakdown-section">
+    <img src="<%= asset_path('logo3.jpg') %>" alt="Logo 2" class="section-logo">
+    <span class="section-text">+ </span>
+     <span class="section-text"> 600 </span>
+      <span class="section-text"> consumption points</span>
+  </div>
+
+  <div class="rewards-breakdown-section">
+    <img src="<%= asset_path('logo2.jpg') %>" alt="Logo 3" class="section-logo">
+    <span class="section-text">+ </span>
+    <span class="section-text"> 300 </span>
+    <span class="section-text"> donation points</span>
+  </div>
+
+ <div class="rewards-breakdown-section">
+    <img src="<%= asset_path('logo4.jpg') %>" alt="Logo 3" class="section-logo">
+    <span class="section-text">- </span>
+    <span class="section-text"> 100</span>
+    <span class="section-text"> waste penalty</span>
+  </div>
+
+</div>
+
+<div class ="border-buttons border-bottom mb-4"></div>
+
+<div class="container-buttons d-flex justify-content-center align-items-center gap-3">
+  <%= link_to "Back", food_items_path,
+        class: "btn btn-secondary px-4 py-2 text-decoration-none text-white" %>
+</div>
