@@ -19,7 +19,16 @@
       </div>
     </div>
   <% end %>
-
+  <h3>or upload an image:</h3>
+  <label for="cameraFileInput">
+    <input
+      id="cameraFileInput"
+      type="file"
+      accept="image/*"
+      capture="environment"
+    >
+  </label>
+  <img id="pictureFromCamera" />
 </div>
 <footer class="text-center mt-5">
       <p class="text-muted">&copy; <%= Time.current.year %> Frispy</p>
