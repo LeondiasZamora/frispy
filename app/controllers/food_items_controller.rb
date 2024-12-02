@@ -83,7 +83,6 @@ class FoodItemsController < ApplicationController
 
       auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
       api_item_name = RestClient.get "https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733155758/development/#{image_path}.jpg", { :Authorization => auth }
-      puts api_item_name
 
       item_name = JSON.parse(api_item_name.body)["result"]["tags"][0]["tag"]["en"]
 
