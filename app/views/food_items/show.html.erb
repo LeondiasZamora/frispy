@@ -26,8 +26,9 @@
     <div class="item_quantity"><%=@food_item.quantity %>x</div>
     <h1 class="text-left fw-bold"><%=@food_item.name%></h1>
   </div>
-  <%= image_tag @image_url, alt: "Food Item", class: "food-item-image img-fluid" if @image_url.present? %>
-  <%= image_tag(@image_url || "comfort_food_placeholder.png", alt: "Food Item", class: "food-item-image img-fluid") %>
+  <img src="<%= @food_item.image_url%>" alt="image of an <%=@food_item.name%>" class="food-item-image">
+  <%# <%= image_tag @food_item.image_url, alt: "Food Item", class: "food-item-image img-fluid" if @food_item.image_url.present? %>
+  <%# <%= image_tag(@image_url || "comfort_food_placeholder.png", alt: "Food Item", class: "food-item-image img-fluid") %>
 </div>
 </div>
 <!-- Food Item description -->

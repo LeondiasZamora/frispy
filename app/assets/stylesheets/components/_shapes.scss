@@ -161,3 +161,12 @@
   width: 90%;
   margin: 10px auto;
 }
+
+.food-item-image {
+  width: 160px;
+  height: 160px;
+  object-position: center center;
+  object-fit: fill;
+  overflow: hidden;
+  border-radius: 8px;
+}
