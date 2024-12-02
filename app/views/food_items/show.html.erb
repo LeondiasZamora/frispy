@@ -1,7 +1,9 @@
+<div class="tada">
 <nav class="navbar frispy-navbar">
   <div class="container-fluid">
-    <span class="navbar-brand text-white fw-bold">Frispy</span>
-
+      <span class="navbar-brand text-white me-3 fw-bold">
+        <%= link_to "Frispy", root_path, class: "text-white text-decoration-none" %>
+      </span>
     <div class="d-flex align-items-center flex-wrap">
       <div class="dropdown">
         <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -16,9 +18,7 @@
   </div>
 </nav>
 
-<body>
 
-<!-- Navbar -->
 <div class="container-icon">
 <!-- Food Item and Picture -->
 <div class="Item-header d-flex justify-content-between align-items-center  pb-2 m-4">
@@ -34,9 +34,9 @@
 <!-- Food Item description -->
 <div class ="border-buttons border-bottom"></div>
 <!-- Food Item details -->
- <div class="container-shapes  pb-2 m-5">
+<div class="container-shapes  pb-2 m-5">
 
- <div class="fw-bold ">Nutritional values</div>
+<div class="fw-bold ">Nutritional values</div>
   <div class="legend-and-circle">
     <div class="circle"><%=@food_item.calories%> cal</div>
     <div id="legend">
@@ -92,3 +92,5 @@
  <footer class="text-center mt-5">
       <p class="text-muted">&copy; <%= Time.current.year %> Frispy</p>
     </footer>
+
+</div>
