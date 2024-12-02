@@ -3,16 +3,30 @@
     <h2 class="ms-3">Recipes</h2>
   </div>
 <div class="container">
+
   <% @recipes["results"].each do |recipe|%>
   <div data-controller="further-info" data-action="click->further-info#toggle" >
     <div class="card-product mt-3">
-      <img src="<%= recipe["thumbnail_url"]%>" />
-      <div class="card-product-infos">
+      <img src="<%= recipe["thumbnail_url"]%>" class="recipes-image"/>
+      <div class="card-product-infos w-100">
         <h2><%= recipe["name"]%></h2>
         <p>preparation time: <%= recipe["prep_time_minutes"]%>min</p>
         <p>fat: <%= recipe["nutrition"]["fat"]%></p>
         <p>calories: <%= recipe["nutrition"]["calories"]%></p>
         <p>sugar: <%= recipe["nutrition"]["sugar"]%></p>
+        <%name_array = []%>
+        <% current_user.recipes.each do |recipe|%>
+          <% name_array.push(recipe.name) %>
+        <% end %>
+      </div>
+      <div class="mt-auto me-2 mb-2">
+        <%= link_to recipes_path(recipe), data: { turbo_method: "post" } do %>
+          <% if name_array.include? recipe["name"]%>
+            <%= image_tag "filled_save.svg", class:'save-icon-recipes ms-auto'%>
+          <%else%>
+            <%= image_tag "save_frispy.svg", class:'save-icon-recipes ms-auto'%>
+          <% end%>
+        <% end %>
       </div>
     </div>
         <div class="hidden-info d-none" data-further-info-target="info">
