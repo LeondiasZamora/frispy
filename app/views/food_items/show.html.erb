@@ -26,7 +26,9 @@
     <div class="item_quantity"><%=@food_item.quantity %>x</div>
     <h1 class="text-left fw-bold"><%=@food_item.name%></h1>
   </div>
-  <img src="<%= @food_item.image_url%>" alt="image of an <%=@food_item.name%>" class="food-item-image">
+  <% if !@food_item.photo.key.nil?%>
+    <%= cl_image_tag @food_item.photo.key,  class: "food-item-image" %>
+  <% end %>
   <%# <%= image_tag @food_item.image_url, alt: "Food Item", class: "food-item-image img-fluid" if @food_item.image_url.present? %>
   <%# <%= image_tag(@image_url || "comfort_food_placeholder.png", alt: "Food Item", class: "food-item-image img-fluid") %>
 </div>
