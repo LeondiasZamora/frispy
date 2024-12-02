@@ -4,7 +4,7 @@ require "json"
 require "open-uri"
 
 class FoodItemsController < ApplicationController
-  before_action :set_food_item, only: %i[show edit update destroy recipes]
+  before_action :set_food_item, only: %i[show edit update destroy recipes_api]
   before_action :authenticate_user!
 
   def index
@@ -29,7 +29,7 @@ class FoodItemsController < ApplicationController
     @food_item = FoodItem.new
   end
 
-  def recipes
+  def recipes_api
     # urgent_food_items = FoodItem.where(expiry_date: Date.today)
     # @food_item = FoodItem.find(params[:id])
     @food_item = FoodItem.find(params[:id])

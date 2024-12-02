@@ -1,0 +1,33 @@
+<h2 class="text-center my-4">Your saved Recipes</h2>
+
+<div class="container">
+<% @recipes.each do |recipe|%>
+  <div data-controller="further-info" data-action="click->further-info#toggle" >
+    <div class="card-product mt-3">
+      <img src="<%= recipe.image%>" />
+      <div class="card-product-infos w-100">
+        <h2><%= recipe.name%></h2>
+        <p>preparation time: <%= recipe.preparation_time%>min</p>
+        <p>fat: <%= recipe.fat%></p>
+        <p>calories: <%= recipe.calories%></p>
+        <p>sugar: <%= recipe.sugar%></p>
+      </div>
+    </div>
+        <div class="hidden-info d-none" data-further-info-target="info">
+        <h3 class="text-center mt-2">Steps: </h3>
+          <ol class="mt-3">
+              <%splitted_array = recipe.instructions.split(',')%>
+              <%splitted_array.each do |instruction|%>
+                <li id="list-item-recipe"><%= instruction%></li>
+              <%end%>
+          </ol>
+        </div>
+  </div>
+  <%= link_to "🗑️", recipe_path(recipe), data: { turbo_method: "delete" turbo_confirm: "Are you sure ?"} %>
+  <% end %>
+  <div class="d-flex justify-content-center">
+    <button class="sign-up-button my-4 ms-3 py-2 px-3 back-button-recipe">
+      <%= link_to "back", food_items_path, class:"text-decoration-none text-white"%>
+    </button>
+  </div>
+</div>
