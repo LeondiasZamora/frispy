@@ -17,7 +17,7 @@
         <div class="hidden-info d-none" data-further-info-target="info">
         <h3 class="text-center mt-2">Steps: </h3>
           <ol class="mt-3">
-              <%splitted_array = recipe.instructions.split(',')%>
+              <%splitted_array = recipe.instructions.split('.')%>
               <%splitted_array.each do |instruction|%>
                 <li id="list-item-recipe"><%= instruction%></li>
               <%end%>

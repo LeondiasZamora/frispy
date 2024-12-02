@@ -4,15 +4,14 @@ class RecipesController < ApplicationController
   end
 
   def create
-    instructions_array = []
-    params["instructions"].map do |instruction|
+    instructions_array = params["instructions"].map do |instruction|
       instruction["display_text"]
     end
+    joined_instructions = instructions_array.join
     nutrition = params[:nutrition]
-    pp nutrition[:calories]
     @recipe = Recipe.new(
       name: params[:name],
-      instructions: instructions_array.join,
+      instructions: joined_instructions,
       fat: nutrition["fat"],
       sugar: nutrition["sugar"],
       calories: nutrition["calories"],
