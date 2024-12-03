@@ -128,7 +128,7 @@ class FoodItemsController < ApplicationController
   def destroy
     @food_item.destroy
     pp "destroy!!"
-    redirect_to food_items_path, notice: "Food item deleted successfully."
+    redirect_to food_items_path, notice: params[:notice]
   end
 
 

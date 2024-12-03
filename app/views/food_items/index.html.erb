@@ -78,7 +78,7 @@
         </div>
       <% end %>
         <%# <%= link_to "🗑️", food_item_path(item), data: { turbo_method: :delete, turbo_method: "Are you sure ?"}, class:"d-none ms-2"%>
-          <%= link_to "🗑️", food_item_path(item), data: { turbo_method: "delete", swipe_to_delete_target:"bin", turbo_action: "replace"}, class: "d-none ms-2" %>
+          <%= link_to "🗑️", food_item_path(item, notice: "Item deleted successfully!"), data: { turbo_method: "delete", swipe_to_delete_target:"bin", turbo_action: "replace"}, class: "d-none ms-2" %>
     </div>
 
       <!-- Bin icon for deletion -->
