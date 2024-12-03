@@ -52,7 +52,8 @@
  <% if @food_items.any? %>
   <% @food_items.each do |item| %>
     <!-- Apply the controller to the item card -->
-    <div class="">
+
+    <div class="" id="<%= dom_id(item) %>">
     <div data-controller="swipe-to-delete" data-action="touchstart->swipe-to-delete#start touchmove->swipe-to-delete#move touchend->swipe-to-delete#end", class="d-flex align-items-center w-100">
       <!-- Item link with proper classes for decoration and navigation -->
       <%= link_to food_item_path(item), class: "text-decoration-none text-black w-100", data: { action: "click->swipe-to-delete#handleLinkClick" } do %>
