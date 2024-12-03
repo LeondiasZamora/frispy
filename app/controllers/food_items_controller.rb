@@ -8,6 +8,7 @@ require 'base64'
 class FoodItemsController < ApplicationController
   before_action :set_food_item, only: %i[show edit update destroy recipes_api]
   before_action :authenticate_user!
+  before_action :set_food_item, only: [:consume, :donate, :expire]
 
   def index
     user_items = FoodItem.where(user_id: current_user)
@@ -123,6 +124,7 @@ class FoodItemsController < ApplicationController
 
   def update
     if @food_item.update(food_item_params)
+
       redirect_to food_items_path, notice: "Food item updated successfully."
     else
       render :edit, status: :unprocessable_entity
@@ -130,15 +132,59 @@ class FoodItemsController < ApplicationController
   end
 
   def destroy
+
+    # Test code salman start
+    @food_item = FoodItem.find(params[:id])
+    if @food_item.expiry_date < Date.today
+      # Deduct points for expired item
+      expire
+      current_user.decrement!(:score, @food_item.quantity) # 1 point per expired item
+      flash[:notice] = "Expired item removed. Points deducted."
+    elsif params[:notice] == "Item deleted successfully!"
+      consume
+      # Add points for consumed item
+      current_user.increment!(:score, @food_item.quantity) # 1 point per consumed item
+      flash[:notice] = "Item consumed successfully! Points added."
+    else
+      donate
+      current_user.increment!(:score, @food_item.quantity)
+      params[:notice]
+    end
+    # Test code salman end
+
     @food_item.destroy
     pp "destroy!!"
     redirect_to food_items_path, notice: params[:notice]
   end
 
 
+# Test code salman start
+  def consume
+    # Update score for consumed food item (e.g., add points to consumed_score)
+    current_user.increment!(:consumed_score, @food_item.quantity)
+    current_user.increment!(:score, @food_item.quantity)  # Total score includes consumed items
+  end
+
+
+# Test code salman start
+  def donate
+    # Update score for donated food item (e.g., add points to charity_score)
+    current_user.increment!(:charity_score, @food_item.quantity)
+    current_user.increment!(:score, @food_item.quantity)  # Total score includes charity donations
+  end
+
+# Test code salman start
+  def expire
+    # Update score for expired food item (e.g., deduct points from expired_score)
+    current_user.decrement!(:expired_score, @food_item.quantity)
+    current_user.decrement!(:score, @food_item.quantity)  # Total score includes expired items
+  end
+
+
   private
 
   def set_food_item
+    @food_item = FoodItem.find(params[:id])
     @food_item = current_user.food_items.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to food_items_path

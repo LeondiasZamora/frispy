@@ -1,7 +1,20 @@
 <nav class="navbar frispy-navbar">
   <div class="container-fluid">
-    <span class="navbar-brand text-white fw-bold">Frispy</span>
-</div>
+      <span class="navbar-brand text-white me-3 fw-bold">
+        <%= link_to "Frispy", root_path, class: "text-white text-decoration-none" %>
+      </span>
+    <div class="d-flex align-items-center flex-wrap">
+      <div class="dropdown me-4">
+  <i class="fa-solid fa-bars text-white" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+      <%= link_to "About", root_path, class: "dropdown-item" %>
+      <%= link_to "Favorite recipes", recipes_path, class: "dropdown-item" %>
+      <%= link_to "To Inventory", food_items_path, class: "dropdown-item" %>
+      <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
+    </div>
+  </div>
+    </div>
+  </div>
 </nav>
 
 <div class="tada">
@@ -11,7 +24,7 @@
 <div class="total-rewards-sections-container">
   <div class="total-rewards-section">
     <img src="<%= asset_path('logo1.png') %>" alt="Logo 1" class="section-logo-total-rewards">
-    <span class="section-text-total-rewards text-center fw-bolder">800</span>
+    <span class="section-text-total-rewards text-center fw-bolder"><%= current_user.score %></span>
     <span class="section-text text-center fw-bold">Your Balance</span>
     <span class="section-text text-center">Earn points by consuming food before it expires, donating to charity, or reducing waste responsibly</span>
   </div>
@@ -22,22 +35,24 @@
 <div class="rewards-breakdown-section-container">
   <div class="rewards-breakdown-section">
     <img src="<%= asset_path('logo3.jpg') %>" alt="Logo 2" class="section-logo">
-    <span class="section-text">+ </span>
-     <span class="section-text"> 600 </span>
-      <span class="section-text"> consumption points</span>
+
+
+     <span class="section-text"> <%= current_user.consumed_score %> </span>
+     <span class="section-text"> consumption points</span>
+
   </div>
 
   <div class="rewards-breakdown-section">
     <img src="<%= asset_path('logo2.jpg') %>" alt="Logo 3" class="section-logo">
-    <span class="section-text">+ </span>
-    <span class="section-text"> 300 </span>
+
+    <span class="section-text"> <%= current_user.charity_score %> </span>
     <span class="section-text"> donation points</span>
   </div>
 
  <div class="rewards-breakdown-section">
     <img src="<%= asset_path('logo4.jpg') %>" alt="Logo 3" class="section-logo">
-    <span class="section-text">- </span>
-    <span class="section-text"> 100</span>
+
+    <span class="section-text"> <%= current_user.expired_score %></span>
     <span class="section-text"> waste penalty</span>
   </div>
 
