@@ -4,21 +4,22 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
-  height: 150px;
+  height: 200px;
 }
 
 .card-product img {
   height: 100%;
   width: 150px;
   object-fit: cover;
-  display: flex;
-  justify-content: flex-start;
+  flex-shrink: 0;
 }
 
 .card-product h2 {
   font-size: 16px;
   font-weight: bold;
   margin: 0;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 .card-product p {
