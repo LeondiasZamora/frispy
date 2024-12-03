@@ -84,7 +84,9 @@ class FoodItemsController < ApplicationController
       sleep(5)
       auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
       pp auth
-      api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733155758/development/#{image_path}.jpg", { :Authorization => auth })
+      pp image_path
+      # api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733155758/development/#{image_path}.jpg", { :Authorization => auth })
+      api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733220332/production/#{image_path}.jpg", { :Authorization => auth })
 
       item_name = JSON.parse(api_item_name.body)["result"]["tags"][0]["tag"]["en"]
       pp item_name
