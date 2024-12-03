@@ -23,9 +23,9 @@
 <div class="container">
   <% @recipes.each do |recipe|%>
       <div data-controller="further-info" data-action="click->further-info#toggle" >
-        <div class="card-product mt-3">
+        <div class="card-product mt-3 rounded-3">
           <img src="<%= recipe.image%>" />
-          <div class="card-product-infos w-100 py-3">
+          <div class="card-product-infos ">
             <h2><%= recipe.name%></h2>
             <p>preparation time: <%= recipe.preparation_time%>min</p>
             <p>fat: <%= recipe.fat%></p>
