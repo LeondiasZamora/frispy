@@ -145,6 +145,6 @@ class FoodItemsController < ApplicationController
   end
 
   def food_item_params
-    params.require(:food_item).permit(:name, :quantity, :expiry_date, :photo)
+    params.require(:food_item).permit(:name, :quantity, :unit, :expiry_date, :photo)
   end
 end
