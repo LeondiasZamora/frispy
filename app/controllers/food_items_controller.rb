@@ -82,11 +82,15 @@ class FoodItemsController < ApplicationController
       api_key = ENV["API_KEY"]
       api_secret = ENV["API_SECRET"]
 
+      sleep(5)
       auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
-      api_item_name = RestClient.get "https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733155758/development/#{image_path}.jpg", { :Authorization => auth }
+      pp auth
+      pp image_path
+      api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733155758/development/#{image_path}.jpg", { :Authorization => auth })
+      # api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733220332/production/#{image_path}.jpg", { :Authorization => auth })
 
       item_name = JSON.parse(api_item_name.body)["result"]["tags"][0]["tag"]["en"]
-
+      pp item_name
       @food_item.update(name: item_name)
       # Api call to get the nutritional values is made here :
       query = item_name
@@ -187,6 +191,6 @@ class FoodItemsController < ApplicationController
   end
 
   def food_item_params
-    params.require(:food_item).permit(:name, :quantity, :expiry_date, :photo)
+    params.require(:food_item).permit(:name, :quantity, :unit, :expiry_date, :photo)
   end
 end
