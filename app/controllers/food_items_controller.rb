@@ -120,6 +120,7 @@ class FoodItemsController < ApplicationController
 
   def update
     if @food_item.update(food_item_params)
+
       redirect_to food_items_path, notice: "Food item updated successfully."
     else
       render :edit, status: :unprocessable_entity
@@ -132,12 +133,18 @@ class FoodItemsController < ApplicationController
     @food_item = FoodItem.find(params[:id])
     if @food_item.expiry_date < Date.today
       # Deduct points for expired item
+      expire
       current_user.decrement!(:score, @food_item.quantity) # 1 point per expired item
       flash[:notice] = "Expired item removed. Points deducted."
-    else
+    elsif params[:notice] == "Item deleted successfully!"
+      consume
       # Add points for consumed item
       current_user.increment!(:score, @food_item.quantity) # 1 point per consumed item
       flash[:notice] = "Item consumed successfully! Points added."
+    else
+      donate
+      current_user.increment!(:score, @food_item.quantity)
+      params[:notice]
     end
     # Test code salman end
 
@@ -152,60 +159,21 @@ class FoodItemsController < ApplicationController
     # Update score for consumed food item (e.g., add points to consumed_score)
     current_user.increment!(:consumed_score, @food_item.quantity)
     current_user.increment!(:score, @food_item.quantity)  # Total score includes consumed items
-
-    # Update food item as consumed (e.g., mark as consumed)
-    @food_item.update(status: "consumed")
-
-    # Respond with Turbo Stream to update the total score on the page
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.update("total-score", partial: "shared/total_score", locals: { user: current_user }),
-          turbo_stream.update("consumed-score", partial: "shared/consumed_score", locals: { user: current_user }),
-          turbo_stream.remove(dom_id(@food_item))
-        ]
-      end
-    end
   end
+
+
 # Test code salman start
   def donate
     # Update score for donated food item (e.g., add points to charity_score)
     current_user.increment!(:charity_score, @food_item.quantity)
     current_user.increment!(:score, @food_item.quantity)  # Total score includes charity donations
-
-    # Update food item as donated
-    @food_item.update(status: "donated")
-
-    # Respond with Turbo Stream to update the total score on the page
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.update("total-score", partial: "shared/total_score", locals: { user: current_user }),
-          turbo_stream.update("charity-score", partial: "shared/charity_score", locals: { user: current_user }),
-          turbo_stream.remove(dom_id(@food_item))
-        ]
-      end
-    end
   end
+
 # Test code salman start
   def expire
     # Update score for expired food item (e.g., deduct points from expired_score)
     current_user.decrement!(:expired_score, @food_item.quantity)
     current_user.decrement!(:score, @food_item.quantity)  # Total score includes expired items
-
-    # Update food item as expired
-    @food_item.update(status: "expired")
-
-    # Respond with Turbo Stream to update the total score on the page
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.update("total-score", partial: "shared/total_score", locals: { user: current_user }),
-          turbo_stream.update("expired-score", partial: "shared/expired_score", locals: { user: current_user }),
-          turbo_stream.remove(dom_id(@food_item))
-        ]
-      end
-    end
   end
 
 

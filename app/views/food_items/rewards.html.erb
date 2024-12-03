@@ -19,21 +19,21 @@
 <div class="rewards-breakdown-section-container">
   <div class="rewards-breakdown-section">
     <img src="<%= asset_path('logo3.jpg') %>" alt="Logo 2" class="section-logo">
-    <span class="section-text">+ </span>
+
      <span class="section-text"> <%= current_user.consumed_score %> </span>
       <span class="section-text"> consumption points</span>
   </div>
 
   <div class="rewards-breakdown-section">
     <img src="<%= asset_path('logo2.jpg') %>" alt="Logo 3" class="section-logo">
-    <span class="section-text">+ </span>
+
     <span class="section-text"> <%= current_user.charity_score %> </span>
     <span class="section-text"> donation points</span>
   </div>
 
  <div class="rewards-breakdown-section">
     <img src="<%= asset_path('logo4.jpg') %>" alt="Logo 3" class="section-logo">
-    <span class="section-text">- </span>
+
     <span class="section-text"> <%= current_user.expired_score %></span>
     <span class="section-text"> waste penalty</span>
   </div>
