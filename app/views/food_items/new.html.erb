@@ -1,7 +1,7 @@
 <div class="tada">
 
 
-<div class="text-center my-3">
+<div class="text-center py-3">
   <%=image_tag "add_items.svg", width: 140, height: 150, class:""%>
   <h2 class="fw-bold">Frispy: Your Recipe for Less Waste</h2>
 </div>
@@ -13,6 +13,9 @@
     <%= f.input :photo, as: :file, accept: "image/*", capture: "environment"%>
     <%= f.input :name %>
     <%= f.input :quantity %>
+    <%= f.input :unit, collection: ["g", "l", "pcs"],
+                 label: "Unit", prompt: "Select unit",
+                 input_html: { class: "form-select" } %>
     <%= f.input :expiry_date, as: :string, input_html: { data: { controller: "datepicker"  }} %>
     <div class="d-flex justify-content-between align-items-baseline">
       <%# <button class="ms-3 back-button mt-3"> %>
