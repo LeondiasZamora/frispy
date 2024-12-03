@@ -85,6 +85,8 @@ body {
   opacity: 0.95;
   min-height: 100vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .tada::before {
@@ -107,10 +109,41 @@ body {
   }
 
   @media (max-width: 576px) {
-    max-width: 130px;
+    max-width: 185px;
   }
 
   @media (max-width: 360px) {
     max-width: 100px;
   }
+}
+
+.recipes-header {
+  position: relative;
+}
+
+.recipes-header .fa-bars {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.dropdown .text-white {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.recipes-header .dropdown-menu {
+  min-width: 200px;
+}
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  padding: 10px 0;
+  margin-bottom: 5px;
 }

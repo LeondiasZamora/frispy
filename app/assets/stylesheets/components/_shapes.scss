@@ -40,17 +40,19 @@
   margin-bottom: 15px;
   border: 1px solid black;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 90px;
+  height: 90px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 5px;
+  margin-top: 20px;
 }
 
 /* Circle */
 .circle {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   background-color: rgb(246, 243, 243);
   color: black;
   font-size: 17px;
@@ -61,7 +63,7 @@
   border-radius: 50%;
   border: 6px solid #2eae5dfd;
   text-align: center;
-  margin-left: 15px;
+  margin-left: 5px;
 }
 
 /* Rectangle row */

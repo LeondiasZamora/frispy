@@ -1,3 +1,5 @@
+<div class="tada">
+
 <img src="<%=@recipe.image%>" alt="image of the recipe" id="recipe-image">
 <div id="back-x">
   <%= link_to "+", recipes_path, id:"back-x-self"%>
@@ -21,4 +23,8 @@
       </ol>
     </div>
   </div>
+</div>
+<footer class="text-center mt-5">
+      <p class="text-muted">&copy; <%= Time.current.year %> Frispy</p>
+    </footer>
 </div>
