@@ -35,7 +35,7 @@
   <div class="d-flex justify-content-center ">
       <%= link_to "Gift to charity", food_item_path(@food_item, notice: "Thank you for being awesome!"),
       data: {turbo_method: :delete, turbo_confirm: "Are you sure ?"},
-      class:"charity-button mt-2 text-decoration-none mx-auto",
+      class:"charity-button mt-2 text-decoration-none mx-auto rounded-3",
       notice: "Thank you for your gift"%>
   </div>
 </div>
@@ -89,12 +89,12 @@
 <div class="container-buttons d-flex justify-content-center align-items-center gap-3">
   <!-- Recipes Button -->
   <%= link_to 'Show recipes', food_item_recipes_path(@food_item),
-        class: 'recipes-browse px-4 py-2 text-decoration-none text-white mt-1',
+        class: 'recipes-browse px-4 py-2 text-decoration-none text-white mt-1 rounded-3',
         title: 'Browse recipes' %>
 
   <!-- Back Button -->
   <%= link_to "Back", food_items_path,
-        class: "btn btn-secondary px-4 py-2 text-decoration-none text-white" %>
+        class: "btn btn-secondary px-4 py-2 text-decoration-none text-white rounded-3" %>
 </div>
 
  <footer class="text-center mt-5">
