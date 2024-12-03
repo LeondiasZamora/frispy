@@ -1,0 +1,18 @@
+<!-- destroy.turbo_stream.erb -->
+<%= turbo_stream.update "total-score" do %>
+  <%= current_user.score %>
+<% end %>
+
+<%= turbo_stream.update "charity-score" do %>
+  <%= current_user.charity_score %>
+<% end %>
+
+<%= turbo_stream.update "consumed-score" do %>
+  <%= current_user.consumed_score %>
+<% end %>
+
+<%= turbo_stream.update "expired-score" do %>
+  <%= current_user.expired_score %>
+<% end %>
+
+<%= turbo_stream.remove dom_id(@food_item) %>
