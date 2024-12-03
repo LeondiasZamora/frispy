@@ -62,6 +62,7 @@ class FoodItemsController < ApplicationController
     @food_item.user = current_user
 
 
+
     #Api call to the imagga api for image recognition
 
 
@@ -78,38 +79,47 @@ class FoodItemsController < ApplicationController
     # @food_item.update(image_url: image_data["results"][0]["urls"]["thumb"])
 
     if @food_item.save
+
+      query = params["food_item"]["name"]
+      # request to the open food facts api
+      open_url = URI("https://world.openfoodfacts.org/cgi/search.pl?search_terms=#{query}&search_simple=1&action=process&json=1&page_size=5")
+      open_response = Net::HTTP.get(open_url)
+      open_data = JSON.parse(open_response)
+      # these are all the things we can use from the api, all nutriments per 100g
+      @food_item.update(calories: open_data["products"][0]["nutriments"]["energy-kcal_100g"])
+      @food_item.update(protein: open_data["products"][0]["nutriments"]["proteins_100g"])
+      @food_item.update(fats: open_data["products"][0]["nutriments"]["fat_100g"])
+      @food_item.update(carbs: open_data["products"][0]["nutriments"]["carbohydrates_100g"])
+      @food_item.update(nutri_score: open_data["products"][0]["nutrition_grade_fr"])
+
       image_path = @food_item.photo.key
       api_key = ENV["API_KEY"]
       api_secret = ENV["API_SECRET"]
 
-      sleep(5)
       auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
-      pp auth
-      pp image_path
       api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733155758/development/#{image_path}.jpg", { :Authorization => auth })
       # api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733220332/production/#{image_path}.jpg", { :Authorization => auth })
 
       item_name = JSON.parse(api_item_name.body)["result"]["tags"][0]["tag"]["en"]
-      pp item_name
-      @food_item.update(name: item_name)
+      @food_item.update(name: query)
       # Api call to get the nutritional values is made here :
-      query = item_name
-      url = "https://api.calorieninjas.com/v1/nutrition?query="
-      api_key = ENV["NUTRITION_API_KEY"]
+      # query = item_name
+      # url = "https://api.calorieninjas.com/v1/nutrition?query="
+      # api_key = ENV["NUTRITION_API_KEY"]
 
-      response = URI.open(url + query, "X-Api-Key" => api_key)
-      if response
-        data = JSON.parse(response.read)
-      else
-        puts "An error occurred while making the API request."
-      end
+      # response = URI.open(url + query, "X-Api-Key" => api_key)
+      # if response
+      #   data = JSON.parse(response.read)
+      # else
+      #   puts "An error occurred while making the API request."
+      # end
 
-      #updating the @food_item with the values we get from the api:
-      @food_item.update(calories: data["items"][0]["calories"])
-      @food_item.update(protein: data["items"][0]["protein_g"])
-      @food_item.update(fats: data["items"][0]["fat_total_g"])
-      @food_item.update(carbs: data["items"][0]["carbohydrates_total_g"])
-      redirect_to food_items_path, notice: "Food item added successfully."
+    #   #updating the @food_item with the values we get from the api:
+    #   @food_item.update(calories: data["items"][0]["calories"])
+    #   @food_item.update(protein: data["items"][0]["protein_g"])
+    #   @food_item.update(fats: data["items"][0]["fat_total_g"])
+    #   @food_item.update(carbs: data["items"][0]["carbohydrates_total_g"])
+        redirect_to food_items_path, notice: "Food item added successfully."
     else
       render :new, status: :unprocessable_entity
     end
