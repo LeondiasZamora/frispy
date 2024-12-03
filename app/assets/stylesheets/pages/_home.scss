@@ -16,8 +16,9 @@
   width: 100%;
   background-color: #328E00;
   padding: 1rem 2rem;
-  position: relative;
-  z-index: 1;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .frispy-navbar .navbar-brand {
