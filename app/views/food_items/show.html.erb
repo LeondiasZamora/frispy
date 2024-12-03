@@ -25,6 +25,10 @@
   <div class="d-flex flex-column name-and-quantity-container">
     <div class="item_quantity"><%=@food_item.quantity %>x</div>
     <h1 class="text-left fw-bold"><%=@food_item.name%></h1>
+    <%= link_to "gift to charity", food_item_path(@food_item, notice: "Thank you for being awesome!"),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure ?"},
+    class:"charity-button mt-2 text-decoration-none",
+    notice: "Thank you for your gift"%>
   </div>
   <% if !@food_item.photo.key.nil?%>
     <%= cl_image_tag @food_item.photo.key,  class: "food-item-image" %>
