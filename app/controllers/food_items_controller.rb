@@ -82,10 +82,11 @@ class FoodItemsController < ApplicationController
       api_secret = ENV["API_SECRET"]
 
       auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
+      pp auth
       api_item_name = RestClient.get "https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733155758/development/#{image_path}.jpg", { :Authorization => auth }
 
       item_name = JSON.parse(api_item_name.body)["result"]["tags"][0]["tag"]["en"]
-
+      pp item_name
       @food_item.update(name: item_name)
       # Api call to get the nutritional values is made here :
       query = item_name
