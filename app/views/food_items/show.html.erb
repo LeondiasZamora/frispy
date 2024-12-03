@@ -21,14 +21,10 @@
 
 <div class="container-icon">
 <!-- Food Item and Picture -->
-<div class="Item-header d-flex justify-content-between align-items-center  pb-2 m-4">
+<div class="Item-header d-flex justify-content-between align-items-center  pb-2 m-4 mb-2">
   <div class="d-flex flex-column name-and-quantity-container">
     <div class="item_quantity"><%=@food_item.quantity%><%=@food_item.unit%></div>
     <h1 class="text-left fw-bold"><%=@food_item.name%></h1>
-    <%= link_to "gift to charity", food_item_path(@food_item, notice: "Thank you for being awesome!"),
-    data: {turbo_method: :delete, turbo_confirm: "Are you sure ?"},
-    class:"charity-button mt-2 text-decoration-none",
-    notice: "Thank you for your gift"%>
   </div>
   <% if !@food_item.photo.key.nil?%>
     <%= cl_image_tag @food_item.photo.key,  class: "food-item-image" %>
@@ -36,11 +32,17 @@
   <%# <%= image_tag @food_item.image_url, alt: "Food Item", class: "food-item-image img-fluid" if @food_item.image_url.present? %>
   <%# <%= image_tag(@image_url || "comfort_food_placeholder.png", alt: "Food Item", class: "food-item-image img-fluid") %>
 </div>
+  <div class="d-flex justify-content-center ">
+      <%= link_to "Gift to charity", food_item_path(@food_item, notice: "Thank you for being awesome!"),
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure ?"},
+      class:"charity-button mt-2 text-decoration-none mx-auto",
+      notice: "Thank you for your gift"%>
+  </div>
 </div>
 <!-- Food Item description -->
-<div class ="border-buttons border-bottom"></div>
+<div class ="border-buttons border-bottom mb-4"></div>
 <!-- Food Item details -->
-<div class="container-shapes  pb-2 m-5">
+<div class="container-shapes  pb-2 mx-5 mb-5">
 
 <div class="fw-bold ">Nutritional values</div>
   <div class="legend-and-circle">
