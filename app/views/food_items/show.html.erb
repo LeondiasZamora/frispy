@@ -44,28 +44,24 @@
 <!-- Food Item description -->
 <div class ="border-buttons border-bottom mb-4"></div>
 <!-- Food Item details -->
-<div class="container-shapes  pb-2 mx-5 mb-5">
+<div class="container-shapes  pb-2 mx-5 mb-3">
 
-<div class="fw-bold ">Nutritional values</div>
-  <div class="legend-and-circle">
-    <div class="circle"><%=@food_item.calories%> cal/100g</div>
-    <div id="legend">
-    <div class="me-3">
-      <div class="legend-row">
-        <div id="green-legend" class="me-1"></div><div>= calories</div>
-      </div>
-      <div class="legend-row">
-        <div id="orange-legend" class="me-1"></div><div>= fats</div>
-      </div>
-    </div>
-    <div>
-      <div class="legend-row">
-        <div id="red-legend" class="me-1"></div><div>= carbs</div>
-      </div>
-      <div class="legend-row">
-        <div id="blue-legend" class="me-1"></div><div>= protein</div>
-      </div>
-    </div>
+<div class="fw-bold mx-auto">Nutritional values and nutri score</div>
+  <div class="nutri-and-circle">
+    <div class="circle"><%=@food_item.calories%> cal</div>
+    <% if @food_item.nutri_score == "a" %>
+      <div class="nutri-score score-a">A</div>
+    <% elsif @food_item.nutri_score == "b" %>
+      <div class="nutri-score score-b">B</div>
+    <% elsif @food_item.nutri_score == "c" %>
+      <div class="nutri-score score-c">C</div>
+    <% elsif @food_item.nutri_score == "d" %>
+      <div class="nutri-score score-d">D</div>
+    <% elsif @food_item.nutri_score == "e" %>
+      <div class="nutri-score score-e">E</div>
+    <% else %>
+      <div>No nutri score availible.</div>
+    <% end %>
     </div>
   </div>
   <div class="rectangle-row">
@@ -73,10 +69,20 @@
     <div class="rectangle protein"><%= @food_item.protein%>g</div>
     <div class="rectangle fats"><%= @food_item.fats %>g</div>
   </div>
-</div>
+  <div id="legend">
+    <div class="legend-element">
+      <div id="orange-legend" class="me-1"></div><div>= fats</div>
+    </div>
+    <div class="legend-element">
+      <div id="red-legend" class="me-1"></div><div>= carbs</div>
+    </div>
+    <div class="legend-element">
+      <div id="blue-legend" class="me-1"></div><div>= protein</div>
+    </div>
+  </div>
 
 <!-- Food Item nutrition Score -->
-<div class="container-nutrition-score pb-2 mx-5 mt-4 mb-4">
+<%# <div class="container-nutrition-score pb-2 mx-5 mt-4 mb-4">
     <div class="fw-bold ">Nutrition score</div>
     <div class="nutri-table">
       <div class="nutri-score score-a">A</div>
@@ -85,7 +91,7 @@
       <div class="nutri-score score-d">D</div>
       <div class="nutri-score score-e">E</div>
     </div>
-    </div>
+    </div> %>
 
 <div class ="border-buttons border-bottom mb-4"></div>
 <div class="container-buttons d-flex justify-content-center align-items-center gap-3">

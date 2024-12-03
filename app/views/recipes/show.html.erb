@@ -6,16 +6,27 @@
 </div>
 <div class="bg-white white-recipe-background">
   <div class="recipe-card mx-auto">
-    <h3 class="mt-3 w-75"><%= @recipe.name %></h3>
-    <h5 class="mt-4"> nutritional values </h5>
+    <h2 class="mt-3 w-75 text-center"><%= @recipe.name %></h2>
+    <div class="mt-5">
+      <div class="rectangle-row">
+        <div class="rectangle carbs"><%= @recipe.calories%>g</div>
+        <div class="rectangle protein"><%= @recipe.sugar%>g</div>
+        <div class="rectangle fats"><%= @recipe.fat %>g</div>
+      </div>
+      <div id="legend" class="mb-5">
+        <div class="legend-element">
+          <div id="orange-legend" class="me-1"></div><div>= kcal</div>
+        </div>
+        <div class="legend-element">
+          <div id="red-legend" class="me-1"></div><div>= sugar</div>
+        </div>
+        <div class="legend-element">
+          <div id="blue-legend" class="me-1"></div><div>= fat</div>
+        </div>
+      </div>
     <div>
-      <p>Preparation Time: <%= @recipe.preparation_time %></p>
-      <p>Fat: <%= @recipe.fat %></p>
-      <p>Sugar: <%= @recipe.sugar %></p>
-      <p>Calories: <%= @recipe.calories %></p>
-    </div>
-    <div>
-      <h5 class="mt-4">Instructions:</h5>
+    <div class ="border-buttons border-bottom mb-4 mt-4"></div>
+      <h5 class="mt-5">Instructions:</h5>
       <ol>
         <%@recipe.instructions.split(".").each do |instruction|%>
           <li id="list-item-recipe" class="mt-3"><%= instruction%></li>
@@ -27,4 +38,5 @@
 <footer class="text-center mt-5">
       <p class="text-muted">&copy; <%= Time.current.year %> Frispy</p>
     </footer>
+</div>
 </div>
