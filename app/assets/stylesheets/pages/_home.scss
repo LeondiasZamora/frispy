@@ -13,12 +13,12 @@
 
 
 .frispy-navbar {
-  width: 100%;
+  // width: 100%;
   background-color: #328E00;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 2;
+  padding: 10px 20px;;
+  // position: sticky;
+  // top: 0;
+  // z-index: 2;
 }
 
 .frispy-navbar .navbar-brand {
@@ -46,7 +46,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 
 .frispy-image {
   width: 125px;
@@ -101,9 +100,10 @@ body {
   z-index: -1;
 }
 
-
-
 .search-food-bar {
+
+  width: 100%;
+  height: 36px;
 
   @media (max-width: 768px) {
     max-width: 400px;
@@ -116,6 +116,12 @@ body {
   @media (max-width: 360px) {
     max-width: 100px;
   }
+}
+
+.fa-bars {
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 20px;
 }
 
 .recipes-header {
@@ -146,5 +152,9 @@ body {
 
 footer {
   padding: 10px 0;
-  margin-bottom: 5px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-bottom: 30px;
 }
