@@ -1,22 +1,23 @@
 <div class="tada">
 
 <%# <h2 class="text-center my-4">Your saved Recipes</h2> %>
-<div class="d-flex justify-content-between align-items-center mb-5 py-3 recipes-header sticky-header">
-  <div class="d-flex align-items-center mx-auto">
-    <%# <%= image_tag "frispy_logo.svg", width: 100, height: 100, class:"me-3" %>
-    <h2 class="ms-3">Your saved Recipes</h2>
-  </div>
+<nav class="navbar frispy-navbar sticky-top">
+  <div class="container-fluid d-flex justify-content-between align-items-center py-3">
+    <div class="d-flex align-items-center mx-auto">
+      <h2 class="ms-3 text-white text-decoration-none fw-bold">Your saved recipes</h2>
+    </div>
 
-  <div class="dropdown me-4">
-    <i class="fa-solid fa-bars" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-      <%= link_to "About", root_path, class: "dropdown-item" %>
-      <%= link_to "Favorite recipes", recipes_path, class: "dropdown-item" %>
-      <%= link_to "To Inventory", food_items_path, class: "dropdown-item" %>
-      <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
+    <div class="dropdown me-4">
+      <i class="fa-solid fa-bars text-white" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <%= link_to "About", root_path, class: "dropdown-item" %>
+        <%= link_to "Favorite recipes", recipes_path, class: "dropdown-item" %>
+        <%= link_to "To Inventory", food_items_path, class: "dropdown-item" %>
+        <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
+      </div>
     </div>
   </div>
-</div>
+</nav>
 
 
 

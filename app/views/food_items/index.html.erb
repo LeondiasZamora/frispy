@@ -1,11 +1,11 @@
 <nav class="navbar frispy-navbar">
   <div class="container-fluid d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center flex-grow-1 justify-content-start">
+    <div class="d-flex align-items-center flex-grow-1">
       <span class="navbar-brand text-white me-3 fw-bold">
         <%= link_to "Frispy", root_path, class: "text-white text-decoration-none" %>
       </span>
 
-      <%= form_with url: food_items_path, method: :get, class: "search-form d-flex align-items-center" do %>
+      <%= form_with url: food_items_path, method: :get, class: "search-form d-flex align-items-center ms-3" do %>
         <%= text_field_tag :query,
             params[:query],
             class: "form-control rounded search-food-bar",
@@ -13,20 +13,18 @@
       <% end %>
     </div>
 
-    <div class="d-flex align-items-center justify-content-end">
-
-      <div class="dropdown me-4">
-    <i class="fa-solid fa-bars text-white" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-      <%= link_to "About", root_path, class: "dropdown-item" %>
-      <%= link_to "Favorite recipes", recipes_path, class: "dropdown-item" %>
-      <%= link_to "To Inventory", food_items_path, class: "dropdown-item" %>
-      <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
-    </div>
-  </div>
+    <div class="dropdown">
+      <i class="fa-solid fa-bars text-white" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <%= link_to "About", root_path, class: "dropdown-item" %>
+        <%= link_to "Favorite recipes", recipes_path, class: "dropdown-item" %>
+        <%= link_to "To Inventory", food_items_path, class: "dropdown-item" %>
+        <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
+      </div>
     </div>
   </div>
 </nav>
+
 
 <div class="tada">
 <div class="container" style="width: 90%">
@@ -82,11 +80,10 @@
         </div>
       <% end %>
         <%# <%= link_to "🗑️", food_item_path(item), data: { turbo_method: :delete, turbo_method: "Are you sure ?"}, class:"d-none ms-2"%>
-          <%= link_to "🗑️", food_item_path(item, notice: "Item deleted successfully!"), data: { turbo_method: "delete", swipe_to_delete_target:"bin", turbo_action: "replace"}, class: "d-none ms-2 text-decoration-none" %>
+          <%= link_to "♻️", food_item_path(item, notice: "Item deleted successfully!"), data: { turbo_method: "delete", swipe_to_delete_target:"bin", turbo_action: "replace"}, class: "d-none ms-2" %>
     </div>
 
       <!-- Bin icon for deletion -->
-    </div>
   <% end %>
     <%else%>
       <div class="call-to-action-inventory">
@@ -99,4 +96,5 @@
       <p class="text-muted">&copy; <%= Time.current.year %> Frispy</p>
     </footer>
 
+    </div>
 </div>
