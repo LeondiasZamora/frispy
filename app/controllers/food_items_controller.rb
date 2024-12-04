@@ -142,52 +142,39 @@ class FoodItemsController < ApplicationController
   end
 
   def destroy
-
-    # Test code salman start
     @food_item = FoodItem.find(params[:id])
+
     if @food_item.expiry_date < Date.today
       # Deduct points for expired item
       expire
-      current_user.decrement!(:score, @food_item.quantity) # 1 point per expired item
       flash[:notice] = "Expired item removed. Points deducted."
     elsif params[:notice] == "Item deleted successfully!"
-      consume
       # Add points for consumed item
-      current_user.increment!(:score, @food_item.quantity) # 1 point per consumed item
+      consume
       flash[:notice] = "Item consumed successfully! Points added."
     else
+      # Add points for donated item
       donate
-      current_user.increment!(:score, @food_item.quantity)
-      params[:notice]
+      flash[:notice] = "Item donated successfully! Points added."
     end
-    # Test code salman end
 
     @food_item.destroy
-    pp "destroy!!"
-    redirect_to food_items_path, notice: params[:notice]
+    redirect_to food_items_path, notice: flash[:notice]
   end
 
-
-# Test code salman start
   def consume
-    # Update score for consumed food item (e.g., add points to consumed_score)
     current_user.increment!(:consumed_score, @food_item.quantity)
     current_user.increment!(:score, @food_item.quantity)  # Total score includes consumed items
   end
 
-
-# Test code salman start
   def donate
-    # Update score for donated food item (e.g., add points to charity_score)
     current_user.increment!(:charity_score, @food_item.quantity)
     current_user.increment!(:score, @food_item.quantity)  # Total score includes charity donations
   end
 
-# Test code salman start
   def expire
-    # Update score for expired food item (e.g., deduct points from expired_score)
-    current_user.decrement!(:expired_score, @food_item.quantity)
-    current_user.decrement!(:score, @food_item.quantity)  # Total score includes expired items
+    current_user.increment!(:expired_score, @food_item.quantity) # Track expired score
+    current_user.decrement!(:score, @food_item.quantity)  # Total score deducts expired items
   end
 
 
