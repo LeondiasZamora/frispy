@@ -80,7 +80,12 @@
         </div>
       <% end %>
         <%# <%= link_to "🗑️", food_item_path(item), data: { turbo_method: :delete, turbo_method: "Are you sure ?"}, class:"d-none ms-2"%>
-          <%= link_to "♻️", food_item_path(item, notice: "Item deleted successfully!"), data: { turbo_method: "delete", swipe_to_delete_target:"bin", turbo_action: "replace"}, class: "d-none ms-2" %>
+          <%= link_to "♻️",
+            food_item_path(item, notice: (item.expiry_date - Date.today).to_i <= 0 ?
+            "🥡 Missed this one? Let’s find ways to consume food in time. You’ve got this!" :
+            "🥗 Good work! You’ve turned potential waste into a delicious meal."),
+            data: { turbo_method: "delete", swipe_to_delete_target: "bin", turbo_action: "replace" },
+            class: "d-none ms-2" %>
     </div>
 
       <!-- Bin icon for deletion -->
@@ -92,9 +97,7 @@
       </div>
   <%end%>
 
-<footer class="text-center mt-5">
-      <p class="text-muted">&copy; <%= Time.current.year %> Frispy</p>
-    </footer>
-
     </div>
+
+
 </div>
