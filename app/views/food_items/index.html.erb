@@ -59,7 +59,7 @@
       <%= link_to food_item_path(item), class: "text-decoration-none text-black w-100", data: { action: "click->swipe-to-delete#handleLinkClick" } do %>
         <div class="card-with-bin ">
           <div class="item-card
-            <% if (item.expiry_date - Date.today).to_i < 0 %>
+            <% if (item.expiry_date - Date.today).to_i <= 0 %>
               expired
             <% elsif (item.expiry_date - Date.today).to_i < 2 %>
               tomorrow
@@ -72,7 +72,7 @@
               <div class="item-quantity"><%= item.unit.in?(["g", "pcs"]) ? item.quantity.to_i : item.quantity %><%= item.unit %></div>
               <div class="item-name"><%= item.name %></div>
             </div>
-            <% if (item.expiry_date - Date.today).to_i < 0 %>
+            <% if (item.expiry_date - Date.today).to_i <= 0 %>
               <div class="item-expectancy">expired</div>
             <% else %>
               <div class="item-expectancy">
