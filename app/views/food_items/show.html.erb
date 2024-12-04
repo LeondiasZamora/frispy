@@ -23,7 +23,10 @@
 <!-- Food Item and Picture -->
 <div class="Item-header d-flex justify-content-between align-items-center  pb-2 m-4 mb-2">
   <div class="d-flex flex-column name-and-quantity-container">
-    <div class="item_quantity"><%=@food_item.quantity%><%=@food_item.unit%></div>
+  <div class="item_quantity">
+    <%= @food_item.unit.in?(["g", "pcs"]) ? @food_item.quantity.to_i : @food_item.quantity %>
+    <%= @food_item.unit %>
+  </div>
     <h1 class="text-left fw-bold"><%=@food_item.name%></h1>
   </div>
   <% if !@food_item.photo.key.nil?%>
@@ -48,7 +51,7 @@
 
 <div class="fw-bold mx-auto">Nutritional values and nutri score</div>
   <div class="nutri-and-circle">
-    <div class="circle"><%=@food_item.calories%> cal</div>
+    <div class="circle"><%=@food_item.calories%> cal/100<%= @food_item.unit == "pcs" ? "g" : (@food_item.unit == "L" ? "ml" : @food_item.unit) %></div>
     <% if @food_item.nutri_score == "a" %>
       <div class="nutri-score score-a">A</div>
     <% elsif @food_item.nutri_score == "b" %>
