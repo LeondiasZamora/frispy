@@ -69,7 +69,6 @@ class FoodItemsController < ApplicationController
     ## here we make the api call to the unsplash api in order to get an image
 
     if @food_item.save
-
       if !@food_item.photo.key.nil?
         image_path = @food_item.photo.key
         api_key = ENV["API_KEY"]
@@ -93,10 +92,10 @@ class FoodItemsController < ApplicationController
         open_response = Net::HTTP.get(open_url)
         open_data = JSON.parse(open_response)
         # these are all the things we can use from the api, all nutriments per 100g
-        @food_item.update(calories: open_data["products"][0]["nutriments"]["energy-kcal_value"])
-        @food_item.update(protein: open_data["products"][0]["nutriments"]["proteins_value"])
-        @food_item.update(fats: open_data["products"][0]["nutriments"]["fat_value"])
-        @food_item.update(carbs: open_data["products"][0]["nutriments"]["carbohydrates_value"])
+        # @food_item.update(calories: open_data["products"][0]["nutriments"]["energy-kcal_value"])
+        # @food_item.update(protein: open_data["products"][0]["nutriments"]["proteins_value"])
+        # @food_item.update(fats: open_data["products"][0]["nutriments"]["fat_value"])
+        # @food_item.update(carbs: open_data["products"][0]["nutriments"]["carbohydrates_value"])
         @food_item.update(nutri_score: open_data["products"][0]["nutrition_grade_fr"])
       else
         unsplash_api_key = ENV["UNSPLASH_API_KEY"]
@@ -112,27 +111,26 @@ class FoodItemsController < ApplicationController
       end
 
       # Api call to get the nutritional values is made here :
-      # query = item_name
-      # url = "https://api.calorieninjas.com/v1/nutrition?query="
-      # api_key = ENV["NUTRITION_API_KEY"]
+      query = item_name
+      url = "https://api.calorieninjas.com/v1/nutrition?query="
+      api_key = ENV["NUTRITION_API_KEY"]
 
-      # response = URI.open(url + query, "X-Api-Key" => api_key)
-      # if response
-      #   data = JSON.parse(response.read)
-      # else
-      #   puts "An error occurred while making the API request."
-      # end
+      response = URI.open(url + query, "X-Api-Key" => api_key)
+      if response
+        data = JSON.parse(response.read)
+      else
+        puts "An error occurred while making the API request."
+      end
 
-    #   #updating the @food_item with the values we get from the api:
-    #   @food_item.update(calories: data["items"][0]["calories"])
-    #   @food_item.update(protein: data["items"][0]["protein_g"])
-    #   @food_item.update(fats: data["items"][0]["fat_total_g"])
-    #   @food_item.update(carbs: data["items"][0]["carbohydrates_total_g"])
-        redirect_to food_items_path, notice: "Food item added successfully."
+      #updating the @food_item with the values we get from the api:
+      @food_item.update(calories: data["items"][0]["calories"])
+      @food_item.update(protein: data["items"][0]["protein_g"])
+      @food_item.update(fats: data["items"][0]["fat_total_g"])
+      @food_item.update(carbs: data["items"][0]["carbohydrates_total_g"])
+      redirect_to food_items_path, notice: "Food item added successfully."
     else
       render :new, status: :unprocessable_entity
     end
-
   end
 
   def edit
