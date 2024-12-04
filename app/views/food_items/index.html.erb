@@ -69,7 +69,7 @@
               time-left
             <% end %>">
             <div class="name-and-quantity">
-              <div class="item-quantity"><%= item.quantity %></div>
+              <div class="item-quantity"><%= item.unit.in?(["g", "pcs"]) ? item.quantity.to_i : item.quantity %><%= item.unit %></div>
               <div class="item-name"><%= item.name %></div>
             </div>
             <% if (item.expiry_date - Date.today).to_i < 0 %>

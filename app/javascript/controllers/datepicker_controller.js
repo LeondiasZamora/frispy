@@ -9,7 +9,7 @@ static values = {dates: Array}
     flatpickr(this.element, {
       disableMobile: true,
       minDate: "today",
-      maxDate: new Date().fp_incr(90)
+      maxDate: new Date().fp_incr(1000)
     })
   }
 }
