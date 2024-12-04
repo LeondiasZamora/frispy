@@ -70,18 +70,6 @@ class FoodItemsController < ApplicationController
 
     if @food_item.save
 
-      query = params["food_item"]["name"]
-      # request to the open food facts api
-      open_url = URI("https://world.openfoodfacts.org/cgi/search.pl?search_terms=#{query}&search_simple=1&action=process&json=1&page_size=5")
-      open_response = Net::HTTP.get(open_url)
-      open_data = JSON.parse(open_response)
-      # these are all the things we can use from the api, all nutriments per 100g
-      @food_item.update(calories: open_data["products"][0]["nutriments"]["energy-kcal_100g"])
-      @food_item.update(protein: open_data["products"][0]["nutriments"]["proteins_100g"])
-      @food_item.update(fats: open_data["products"][0]["nutriments"]["fat_100g"])
-      @food_item.update(carbs: open_data["products"][0]["nutriments"]["carbohydrates_100g"])
-      @food_item.update(nutri_score: open_data["products"][0]["nutrition_grade_fr"])
-
       if !@food_item.photo.key.nil?
         image_path = @food_item.photo.key
         api_key = ENV["API_KEY"]
@@ -92,8 +80,23 @@ class FoodItemsController < ApplicationController
         # api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733220332/production/#{image_path}.jpg", { :Authorization => auth })
 
         item_name = JSON.parse(api_item_name.body)["result"]["tags"][0]["tag"]["en"]
-        @food_item.update(name: query)
+        @food_item.update(name: item_name)
 
+        if params["food_item"]["name"] == ""
+          query = item_name
+        else
+          query = params["food_item"]["name"]
+        end
+        # request to the open food facts api
+        open_url = URI("https://world.openfoodfacts.org/cgi/search.pl?search_terms=#{query}&search_simple=1&action=process&json=1&page_size=5")
+        open_response = Net::HTTP.get(open_url)
+        open_data = JSON.parse(open_response)
+        # these are all the things we can use from the api, all nutriments per 100g
+        @food_item.update(calories: open_data["products"][0]["nutriments"]["energy-kcal_value"])
+        @food_item.update(protein: open_data["products"][0]["nutriments"]["proteins_value"])
+        @food_item.update(fats: open_data["products"][0]["nutriments"]["fat_value"])
+        @food_item.update(carbs: open_data["products"][0]["nutriments"]["carbohydrates_value"])
+        @food_item.update(nutri_score: open_data["products"][0]["nutrition_grade_fr"])
       else
         unsplash_api_key = ENV["UNSPLASH_API_KEY"]
         unsplash_api_base_url = "https://api.unsplash.com/search/photos"
