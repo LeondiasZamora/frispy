@@ -67,16 +67,6 @@ class FoodItemsController < ApplicationController
 
 
     ## here we make the api call to the unsplash api in order to get an image
-    # unsplash_api_key = ENV["UNSPLASH_API_KEY"]
-    # unsplash_api_base_url = "https://api.unsplash.com/search/photos"
-
-    # unsplash_api_url = "#{unsplash_api_base_url}?query=#{URI.encode_www_form_component(query)}&client_id=#{unsplash_api_key}"
-
-    # unsplash_response = URI.open(unsplash_api_url).read
-    # image_data = JSON.parse(unsplash_response)
-
-    # #updating the @food_item with the image url we got back
-    # @food_item.update(image_url: image_data["results"][0]["urls"]["thumb"])
 
     if @food_item.save
 
@@ -92,16 +82,31 @@ class FoodItemsController < ApplicationController
       @food_item.update(carbs: open_data["products"][0]["nutriments"]["carbohydrates_100g"])
       @food_item.update(nutri_score: open_data["products"][0]["nutrition_grade_fr"])
 
-      image_path = @food_item.photo.key
-      api_key = ENV["API_KEY"]
-      api_secret = ENV["API_SECRET"]
+      if !@food_item.photo.key.nil?
+        image_path = @food_item.photo.key
+        api_key = ENV["API_KEY"]
+        api_secret = ENV["API_SECRET"]
 
-      auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
-      api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733155758/development/#{image_path}.jpg", { :Authorization => auth })
-      # api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733220332/production/#{image_path}.jpg", { :Authorization => auth })
+        auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
+        api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733155758/development/#{image_path}.jpg", { :Authorization => auth })
+        # api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733220332/production/#{image_path}.jpg", { :Authorization => auth })
 
-      item_name = JSON.parse(api_item_name.body)["result"]["tags"][0]["tag"]["en"]
-      @food_item.update(name: query)
+        item_name = JSON.parse(api_item_name.body)["result"]["tags"][0]["tag"]["en"]
+        @food_item.update(name: query)
+
+      else
+        unsplash_api_key = ENV["UNSPLASH_API_KEY"]
+        unsplash_api_base_url = "https://api.unsplash.com/search/photos"
+
+        unsplash_api_url = "#{unsplash_api_base_url}?query=#{URI.encode_www_form_component(query)}&client_id=#{unsplash_api_key}"
+
+        unsplash_response = URI.open(unsplash_api_url).read
+        image_data = JSON.parse(unsplash_response)
+
+        #updating the @food_item with the image url we got back
+        @food_item.update(image_url: image_data["results"][0]["urls"]["thumb"])
+      end
+
       # Api call to get the nutritional values is made here :
       # query = item_name
       # url = "https://api.calorieninjas.com/v1/nutrition?query="

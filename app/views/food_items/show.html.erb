@@ -32,7 +32,7 @@
   <% if !@food_item.photo.key.nil?%>
     <%= cl_image_tag @food_item.photo.key,  class: "food-item-image" %>
   <% else %>
-    <%= image_tag "food_frispy", class:"food-item-image"%>
+    <%= image_tag @food_item.image_url, class:"food-item-image"%>
   <% end %>
   <%# <%= image_tag @food_item.image_url, alt: "Food Item", class: "food-item-image img-fluid" if @food_item.image_url.present? %>
   <%# <%= image_tag(@image_url || "comfort_food_placeholder.png", alt: "Food Item", class: "food-item-image img-fluid") %>
