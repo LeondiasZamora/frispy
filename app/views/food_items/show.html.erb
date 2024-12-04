@@ -21,7 +21,7 @@
 
 <div class="container-icon">
 <!-- Food Item and Picture -->
-<div class="Item-header d-flex justify-content-between align-items-center  pb-2 m-4 mb-2">
+<div class="Item-header d-flex justify-content-between align-items-center  pb-2 mx-4 mt-2 mb-2">
   <div class="d-flex flex-column name-and-quantity-container">
   <div class="item_quantity">
     <%= @food_item.unit.in?(["g", "pcs"]) ? @food_item.quantity.to_i : @food_item.quantity %>
@@ -31,8 +31,10 @@
   </div>
   <% if !@food_item.photo.key.nil?%>
     <%= cl_image_tag @food_item.photo.key,  class: "food-item-image" %>
-  <% else %>
+  <% elsif !@food_item.image_url.nil? %>
     <%= image_tag @food_item.image_url, class:"food-item-image"%>
+  <%else%>
+    <div>Sorry! We don't have an Image.</div>
   <% end %>
   <%# <%= image_tag @food_item.image_url, alt: "Food Item", class: "food-item-image img-fluid" if @food_item.image_url.present? %>
   <%# <%= image_tag(@image_url || "comfort_food_placeholder.png", alt: "Food Item", class: "food-item-image img-fluid") %>
@@ -40,9 +42,9 @@
   <div class="d-flex justify-content-center">
     <% if (@food_item.expiry_date - Date.today).to_i > 0 %>
   <%= link_to "Gift to charity", food_item_path(@food_item, notice: "Thank you for being awesome!"),
-      data: { turbo_method: :delete, turbo_confirm: "Are you sure ?" },
+      data: { turbo_method: :delete, turbo_confirm: "This will delete the item from your inventory." },
       class: "charity-button mt-2 text-decoration-none mx-auto rounded-3",
-      notice: "Thank you for your gift" %>
+      notice: "Thank you for being so awesome! <br /> A frispy driver will pick up the food tomorrow at 6 p.m." %>
 <% end %>
   </div>
 </div>
@@ -98,19 +100,19 @@
     </div>
     </div> %>
 
-<div class ="border-buttons border-bottom mb-4"></div>
-<div class="container-buttons d-flex justify-content-center align-items-center gap-3">
+<div class ="border-buttons border-bottom mb-4 mt-4"></div>
+<div class="container-buttons gap-3">
   <!-- Recipes Button -->
   <%= link_to 'Show recipes', food_item_recipes_path(@food_item),
-        class: 'recipes-browse px-4 py-2 text-decoration-none text-white mt-1 rounded-3',
+        class: 'recipes-browse px-4 py-2 text-decoration-none text-white rounded-3',
         title: 'Browse recipes' %>
 
   <!-- Back Button -->
   <%= link_to "Back", food_items_path,
-        class: "btn btn-secondary px-4 py-2 text-decoration-none text-white rounded-3" %>
+        class: "btn btn-secondary border-0 px-4 py-2 text-decoration-none text-white rounded-3 my-auto" %>
 </div>
 
- <footer class="text-center mt-5">
+    <footer class="text-center mt-4">
       <p class="text-muted">&copy; <%= Time.current.year %> Frispy</p>
     </footer>
 
