@@ -171,15 +171,15 @@ class FoodItemsController < ApplicationController
     if @food_item.expiry_date < Date.today
       # Deduct points for expired item
       expire
-      flash[:notice] = "Expired item removed. Points deducted."
+      flash[:notice] = params[:notice]
     elsif params[:notice] == "Item deleted successfully!"
       # Add points for consumed item
       consume
-      flash[:notice] = "Item consumed successfully! Points added."
+      flash[:notice] = params[:notice]
     else
       # Add points for donated item
       donate
-      flash[:notice] = "Thank you for being so awesome! A frispy driver will pick up the food tomorrow at 12 a.m."
+      flash[:notice] = params[:notice]
     end
 
     @food_item.destroy
