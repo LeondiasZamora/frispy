@@ -69,7 +69,7 @@ class FoodItemsController < ApplicationController
     ## here we make the api call to the unsplash api in order to get an image
 
     if @food_item.save
-      if !@food_item.photo.key.nil?
+      if params["food_item"]["name"] == ""
         image_path = @food_item.photo.key
         api_key = ENV["API_KEY"]
         api_secret = ENV["API_SECRET"]
@@ -80,13 +80,13 @@ class FoodItemsController < ApplicationController
 
         @item_name = JSON.parse(api_item_name.body)["result"]["tags"][0]["tag"]["en"]
 
-        if params["food_item"]["name"] == ""
-          @food_item.update(name: @item_name.capitalize!)
-          query = @item_name
-        else
-          query = params["food_item"]["name"]
-          @food_item.update(name: query.capitalize!)
-        end
+        # if params["food_item"]["name"] == ""
+        @food_item.update(name: @item_name.capitalize!)
+        query = @item_name
+        # else
+        #   query = params["food_item"]["name"]
+        #   @food_item.update(name: query.capitalize!)
+        # end
         # request to the open food facts api
         open_url = URI("https://world.openfoodfacts.org/cgi/search.pl?search_terms=#{query}&search_simple=1&action=process&json=1&page_size=5")
         open_response = Net::HTTP.get(open_url)
@@ -108,17 +108,23 @@ class FoodItemsController < ApplicationController
 
         unsplash_response = URI.open(unsplash_api_url).read
         image_data = JSON.parse(unsplash_response)
-
         #updating the @food_item with the image url we got back
         @food_item.update(image_url: image_data["results"][0]["urls"]["thumb"])
+
+        open_url = URI("https://world.openfoodfacts.org/cgi/search.pl?search_terms=#{query}&search_simple=1&action=process&json=1&page_size=5")
+        open_response = Net::HTTP.get(open_url)
+        open_data = JSON.parse(open_response)
+
+        @food_item.update(nutri_score: open_data["products"][0]["nutrition_grade_fr"])
       end
 
       # Api call to get the nutritional values is made here :
-      if @item_name.nil?
-        query = params["food_item"]["name"]
-      else
+      if @item_name
         query = @item_name
+      else
+        query = params["food_item"]["name"]
       end
+
       url = "https://api.calorieninjas.com/v1/nutrition?query="
       api_key = ENV["NUTRITION_API_KEY"]
 
@@ -128,8 +134,12 @@ class FoodItemsController < ApplicationController
       else
         puts "An error occurred while making the API request."
       end
-
-      #updating the @food_item with the values we get from the api:
+      if params["food_item"]["name"] == ""
+        @food_item.update(name: @item_name)
+      else
+        @food_item.update(name: params["food_item"]["name"])
+      end
+        #updating the @food_item with the values we get from the api:
       @food_item.update(calories: data["items"][0]["calories"])
       @food_item.update(protein: data["items"][0]["protein_g"])
       @food_item.update(fats: data["items"][0]["fat_total_g"])
