@@ -11,7 +11,10 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :food_items
-  resources :recipes, exept: %i[show edit update new]
+  resources :recipes, only: %i[index create destroy]
+
+
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
