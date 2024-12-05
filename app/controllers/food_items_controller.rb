@@ -78,11 +78,11 @@ class FoodItemsController < ApplicationController
         api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733155758/development/#{image_path}.jpg", { :Authorization => auth })
         # api_item_name = RestClient.get("https://api.imagga.com/v2/tags?image_url=https://res.cloudinary.com/dsc3ysvjs/image/upload/v1733220332/production/#{image_path}.jpg", { :Authorization => auth })
 
-        item_name = JSON.parse(api_item_name.body)["result"]["tags"][0]["tag"]["en"]
+        @item_name = JSON.parse(api_item_name.body)["result"]["tags"][0]["tag"]["en"]
 
         if params["food_item"]["name"] == ""
-          @food_item.update(name: item_name.capitalize!)
-          query = item_name
+          @food_item.update(name: @item_name.capitalize!)
+          query = @item_name
         else
           query = params["food_item"]["name"]
           @food_item.update(name: query.capitalize!)
@@ -98,6 +98,9 @@ class FoodItemsController < ApplicationController
         # @food_item.update(carbs: open_data["products"][0]["nutriments"]["carbohydrates_value"])
         @food_item.update(nutri_score: open_data["products"][0]["nutrition_grade_fr"])
       else
+        query = params["food_item"]["name"]
+        @food_item.update(name: query.capitalize!)
+
         unsplash_api_key = ENV["UNSPLASH_API_KEY"]
         unsplash_api_base_url = "https://api.unsplash.com/search/photos"
 
@@ -111,7 +114,11 @@ class FoodItemsController < ApplicationController
       end
 
       # Api call to get the nutritional values is made here :
-      query = item_name
+      if @item_name.nil?
+        query = params["food_item"]["name"]
+      else
+        query = @item_name
+      end
       url = "https://api.calorieninjas.com/v1/nutrition?query="
       api_key = ENV["NUTRITION_API_KEY"]
 
