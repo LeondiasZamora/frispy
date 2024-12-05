@@ -27,10 +27,10 @@
           <img src="<%= recipe["thumbnail_url"]%>" class="recipes-image"/>
           <div class="card-product-infos w-100">
             <h2><%= recipe["name"]%></h2>
-            <p>preparation time: <%= recipe["prep_time_minutes"]%>min</p>
-            <p>fat: <%= recipe["nutrition"]["fat"]%></p>
-            <p>calories: <%= recipe["nutrition"]["calories"]%></p>
-            <p>sugar: <%= recipe["nutrition"]["sugar"]%></p>
+            <p>preparation time: <%= recipe["prep_time_minutes"] == 0 ? "unknown" : "#{recipe["prep_time_minutes"]}  min" %></p>
+            <p>fat: <%= recipe["nutrition"]["fat"].present? ? recipe["nutrition"]["fat"] : "unknown" %></p>
+            <p>calories: <%= recipe["nutrition"]["calories"].present? ? recipe["nutrition"]["calories"] : "unknown"%></p>
+            <p>sugar: <%= recipe["nutrition"]["sugar"].present? ? recipe["nutrition"]["sugar"] : "unknown"%></p>
             <%name_array = []%>
             <% current_user.recipes.each do |recipe|%>
               <% name_array.push(recipe.name) %>
