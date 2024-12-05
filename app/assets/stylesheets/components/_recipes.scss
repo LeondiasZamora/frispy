@@ -4,12 +4,15 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
-  height: 200px;
+  height: 161px;
+}
+.card-product a {
+  text-decoration: none;
 }
 
 .card-product img {
   height: 100%;
-  width: 150px;
+  width: 165px;
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -20,6 +23,8 @@
   margin: 0;
   word-wrap: break-word;
   white-space: normal;
+  text-decoration: none;
+  color: black;
 }
 
 .card-product p {
@@ -28,7 +33,10 @@
   opacity: .7;
   margin-bottom: 0;
   margin-top: 8px;
+  color: black;
 }
+
+
 
 .card-product .card-product-infos {
   padding: 16px;
@@ -67,4 +75,13 @@
 
 .recipes-image{
   height: 100%;
+}
+
+.recipe-link{
+  display: flex;
+  height: 100%;
+}
+
+.recipe-link a {
+  text-decoration: none;
 }

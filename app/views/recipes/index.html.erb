@@ -23,8 +23,9 @@
 
 <div class="container">
   <% @recipes.each do |recipe|%>
-      <div data-controller="further-info" data-action="click->further-info#toggle" >
+  <%=link_to recipe_path(recipe) do%>
         <div class="card-product mt-3 rounded-3">
+      <div class="recipe-link">
           <img src="<%= recipe.image%>" />
           <div class="card-product-infos ">
             <h2><%= recipe.name%></h2>
@@ -32,20 +33,21 @@
             <p>fat: <%= recipe.fat%></p>
             <p>calories: <%= recipe.calories%></p>
             <p>sugar: <%= recipe.sugar%></p>
+      </div>
           </div>
-        <%= link_to "select", recipe_path(recipe), class:"text-decoration-none text-black mt-auto mb-3 me-3" %>
-        <%= link_to "🗑️", recipe_path(recipe), data: { turbo_method: "delete", turbo_confirm: "Are you sure ?"}, class:"mt-auto me-3 mb-3" %>
+    <% end %>
+        <%# <%= link_to "select", recipe_path(recipe), class:"text-decoration-none text-black mt-auto mb-3 me-3" %>
+        <%= link_to "🗑️", recipe_path(recipe), data: { turbo_method: "delete", turbo_confirm: "Are you sure ?"}, class:"mt-auto me-3 mb-4 text-decoration-none" %>
         </div>
-          <div class="hidden-info d-none bg-white" data-further-info-target="info">
+          <%# <div class="hidden-info d-none bg-white" data-further-info-target="info">
           <h3 class="text-center mt-2">Steps: </h3>
           <ol class="mt-3">
             <%splitted_array = recipe.instructions.split('.')%>
-            <%splitted_array.each do |instruction|%>
-              <li id="list-item-recipe"><%= instruction%></li>
-            <%end%>
-          </ol>
-        </div>
-      </div>
+            <%# <%splitted_array.each do |instruction|%>
+              <%# <li id="list-item-recipe"><%= instruction</li> %>
+            <%# <%end%>
+          <%# </ol>
+        </div> %>
   <% end %>
   <div class="d-flex justify-content-center">
     <button class="btn btn-secondary my-4 ms-3 py-2 px-3 back-button-recipe">
