@@ -43,10 +43,10 @@
 </div>
   <div class="d-flex justify-content-center">
     <% if (@food_item.expiry_date - Date.today).to_i > 0 %>
-  <%= link_to "Gift to charity", food_item_path(@food_item, notice: "Thank you for being awesome!"),
+  <%= link_to "Gift to charity", food_item_path(@food_item, notice: "Thank you for being awesome! A frispy driver will pick up the food tomorrow at 6:00 PM."),
       data: { turbo_method: :delete, turbo_confirm: "This will delete the item from your inventory." },
       class: "charity-button mt-2 text-decoration-none mx-auto rounded-3",
-      notice: "Thank you for being so awesome! <br /> A frispy driver will pick up the food tomorrow at 6:00 PM." %>
+      notice: "Thank you for being so awesome! A frispy driver will pick up the food tomorrow at 6:00 PM." %>
 <% end %>
   </div>
 </div>
