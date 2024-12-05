@@ -38,5 +38,4 @@ class RecipesController < ApplicationController
 
     redirect_to recipes_path, notice: "food item deleted successfully. "
   end
-
 end
